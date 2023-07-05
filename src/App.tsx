@@ -1,30 +1,16 @@
 import React from "react";
-import { Rnd } from "react-rnd";
-//https://github.com/bokuweb/react-rnd
+import { RndWrapper } from "./components/rndWrapper";
+import { Footer } from "./components/footer";
+
+//https://github.com/syxanash/awesome-web-desktops/tree/master
 
 export default function App() {
   return (
-    <Rnd
-      default={{
-        x: 0,
-        y: 0,
-        width: 650,
-        height: 200,
-      }}
-      minWidth={230}
-      minHeight={190}
-      bounds="window"
-    >
-      <div className=" flex h-full w-full items-center justify-center border-2">
-        <div className=" p-4">
-          <strong>Chad Hill</strong> <small>@chad2320</small> <small>31m</small>
-          <br />
-          <p className=" break-normal">
-            This is a test of how the Rnd component works. Seems to work pretty
-            good.
-          </p>
-        </div>
-      </div>
-    </Rnd>
+    <div className=" flex h-screen w-screen flex-col ">
+      <main className=" flex-1 bg-hero-pattern bg-cover">
+        <RndWrapper />
+      </main>
+      <Footer />
+    </div>
   );
 }
