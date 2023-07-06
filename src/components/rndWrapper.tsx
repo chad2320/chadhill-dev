@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Rnd } from "react-rnd"; //https://github.com/bokuweb/react-rnd
+import { Rnd } from "react-rnd";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useSpring, animated } from "@react-spring/web";
 import FitScreenIcon from "@mui/icons-material/FitScreen";
+import CloseIcon from "@mui/icons-material/Close";
 
-export const RndWrapper = () => {
+interface RndWrapperProps {
+  handleClose: () => void;
+  handleMoveToEnd: () => void;
+}
+
+export const RndWrapper: React.FC<RndWrapperProps> = ({
+  handleClose,
+  handleMoveToEnd,
+}) => {
   const [isToggled, setIsToggled] = useState(false);
   const fade = useSpring({
     color: isToggled ? "#000" : "green",
@@ -15,28 +24,25 @@ export const RndWrapper = () => {
     fontSize: isToggled ? "2rem" : "3rem",
   });
 
+  const handleContainerMouseDown = () => {
+    handleMoveToEnd();
+  };
   //State for controlling Rnd. Wich is neccesary for having a max size button.
   const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
+    x: 100,
+    y: 100,
   });
   const [size, setSize] = useState({
     width: 650,
     height: 200,
   });
-  const [maxed, setMaxed] = useState(false);
+  const [maxed, setMaxed] = useState(true);
   const handleMaxed = () => {
     setMaxed(!maxed);
   };
 
   return (
     <Rnd
-      default={{
-        x: 0,
-        y: 0,
-        width: 650,
-        height: 200,
-      }}
       size={{
         width: maxed ? size.width : "100%",
         height: maxed ? size.height : "94%",
@@ -62,23 +68,27 @@ export const RndWrapper = () => {
       bounds="parent"
       dragHandleClassName="handle"
     >
-      <div className=" w-fullitems-center h-full flex-col justify-center border-2 bg-white">
-        <div className=" handle h-10 w-full flex-row justify-between bg-slate-200">
-          <div className="flex h-full flex-row items-center justify-between bg-slate-500">
-            <div className="">
-              <ArrowBackIcon />
-              <ArrowForwardIcon />
-            </div>
-            <div>
-              <button onClick={handleMaxed}>
-                <FitScreenIcon />
-              </button>
-            </div>
+      <div
+        className="h-full w-full flex-col items-center justify-center border-2 bg-white"
+        onMouseDown={handleContainerMouseDown}
+      >
+        <div className=" handle flex h-10 flex-row items-center justify-between bg-slate-500">
+          <div>
+            <ArrowBackIcon />
+            <ArrowForwardIcon />
           </div>
           <div>
-            <animated.h1 style={{ ...fade }}>Hello</animated.h1>
-            <button onClick={() => setIsToggled(!isToggled)}>Toggle</button>
+            <button onClick={handleMaxed}>
+              <FitScreenIcon />
+            </button>
+            <button onClick={handleClose}>
+              <CloseIcon />
+            </button>
           </div>
+        </div>
+        <div>
+          <animated.h1 style={{ ...fade }}>Hello</animated.h1>
+          <button onClick={() => setIsToggled(!isToggled)}>Toggle</button>
         </div>
       </div>
     </Rnd>
