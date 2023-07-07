@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RndWrapper } from "./components/rndWrapper";
 import { Footer } from "./components/footer";
 import { TestIcon } from "./components/icons";
+import { AnimatePresence } from "framer-motion";
 
 interface RndWrapperItem {
   id: number;
@@ -57,11 +58,13 @@ export default function App() {
   return (
     <div className="flex h-screen w-screen flex-col">
       <main className="flex-1 bg-hero-pattern bg-cover">
-        {rndWrappers.map((rndWrapper) => (
-          <React.Fragment key={rndWrapper.id}>
-            {rndWrapper.component}
-          </React.Fragment>
-        ))}
+        <AnimatePresence>
+          {rndWrappers.map((rndWrapper) => (
+            <React.Fragment key={rndWrapper.id}>
+              {rndWrapper.component}
+            </React.Fragment>
+          ))}
+        </AnimatePresence>
         <TestIcon handleOpen={handleAddRndWrapper} />
       </main>
       <Footer />

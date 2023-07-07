@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Rnd } from "react-rnd";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useSpring, animated } from "@react-spring/web";
 import FitScreenIcon from "@mui/icons-material/FitScreen";
 import CloseIcon from "@mui/icons-material/Close";
+import { motion } from "framer-motion";
 
 interface RndWrapperProps {
   handleClose: () => void;
@@ -15,19 +15,13 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   handleClose,
   handleMoveToEnd,
 }) => {
-  const [isToggled, setIsToggled] = useState(false);
-  const fade = useSpring({
-    color: isToggled ? "#000" : "green",
-    transform: isToggled
-      ? "translate3d(0, 15px, 0)"
-      : "translate3d(0, 15px, 0)",
-    fontSize: isToggled ? "2rem" : "3rem",
-  });
-
+  /* const grow = useSpring({
+    transform: maxed ? "translate3d(0" : "",
+  }); */
   const handleContainerMouseDown = () => {
     handleMoveToEnd();
   };
-  //State for controlling Rnd. Wich is neccesary for having a max size button.
+  //State for controlling Rnd. Which is neccesary for having a max size button.
   const [position, setPosition] = useState({
     x: 100,
     y: 100,
@@ -68,9 +62,13 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
       bounds="parent"
       dragHandleClassName="handle"
     >
-      <div
-        className="h-full w-full flex-col items-center justify-center border-2 bg-white"
-        onMouseDown={handleContainerMouseDown}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, width: size.width, height: size.height }}
+        exit={{ opacity: 0, scale: 0, y: 50 }}
+        whileHover={maxed ? { scale: 1.005 } : {}}
+        className="h-full flex-col items-center justify-center border-2 border-red-600 bg-white"
+        onClick={handleContainerMouseDown}
       >
         <div className=" handle flex h-10 flex-row items-center justify-between bg-slate-500">
           <div>
@@ -78,7 +76,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             <ArrowForwardIcon />
           </div>
           <div>
-            <button onClick={handleMaxed}>
+            <button onClick={handleMaxed} className=" cursor-pointer">
               <FitScreenIcon />
             </button>
             <button onClick={handleClose}>
@@ -86,11 +84,22 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             </button>
           </div>
         </div>
-        <div>
-          <animated.h1 style={{ ...fade }}>Hello</animated.h1>
-          <button onClick={() => setIsToggled(!isToggled)}>Toggle</button>
+        <div className="flex w-full flex-col">
+          <motion.div
+            className="h-20 w-20 bg-purple-950"
+            whileHover={{
+              scale: [1, 2, 2, 1, 1],
+              rotate: [0, 0, 270, 270, 0],
+              borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+            }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              times: [0, 0.2, 0.5, 0.8, 1],
+            }}
+          />
         </div>
-      </div>
+      </motion.div>
     </Rnd>
   );
 };
