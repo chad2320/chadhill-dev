@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RndWrapper } from "./components/rndWrapper";
 import { TestIcon } from "./components/icons";
 import { AnimatePresence } from "framer-motion";
+import { Clock } from "./components/clock";
 
 interface RndWrapperItem {
   id: number;
@@ -11,7 +12,6 @@ interface RndWrapperItem {
 export default function App() {
   const [rndWrappers, setRndWrappers] = useState<RndWrapperItem[]>([]);
   function handleClose(id: number) {
-    console.log("closing");
     setRndWrappers((prevRndWrappers) =>
       prevRndWrappers.filter((wrapper) => wrapper.id !== id)
     );
@@ -55,8 +55,13 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen flex-col ">
-      <header className=" h-8 w-full bg-red-300">Header</header>
-      <main className={"h-full w-full overflow-hidden bg-slate-700 bg-cover"}>
+      <header className=" flex h-5 w-full flex-row justify-between bg-violet-500">
+        <p className="font-chicago text-sm">Chad Suite</p>
+        <Clock />
+      </header>
+      <main
+        className={"h-full w-full overflow-hidden bg-hero-pattern bg-cover"}
+      >
         <AnimatePresence>
           {rndWrappers.map((rndWrapper) => (
             <React.Fragment key={rndWrapper.id}>

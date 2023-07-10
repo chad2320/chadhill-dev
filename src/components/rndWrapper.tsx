@@ -39,10 +39,10 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   useEffect(() => {
     if (position.x > 0) {
       const rightGap = windowSize.width - (position.x + size.width);
-      console.log("windowsize", windowSize.width);
+      /* console.log("windowsize", windowSize.width);
       console.log("rightgap", rightGap);
       console.log("position", position);
-      console.log("size", size);
+      console.log("size", size); */
       if (rightGap <= 20) {
         setPosition({ x: 0, y: windowSize.height * 0.5 });
       }
@@ -82,7 +82,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0, y: 50 }}
         whileHover={maxed ? { scale: 1.005 } : {}}
-        className="h-full flex-col items-center justify-center border-2 border-red-600 bg-white"
+        className="h-full flex-col items-center justify-center rounded-lg border-2 border-violet-500 bg-white"
         onClick={handleContainerMouseDown}
       >
         <div className=" handle flex h-6 flex-row items-center justify-between bg-slate-500">
