@@ -27,8 +27,8 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
     y: 0,
   });
   const [size, setSize] = useState({
-    width: 650,
-    height: 200,
+    width: windowSize.width * 0.5,
+    height: windowSize.height * 0.25,
   });
   const [maxed, setMaxed] = useState(true);
   const handleMaxed = () => {
@@ -85,8 +85,9 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
         className="h-full flex-col items-center justify-center border-2 border-red-600 bg-white"
         onClick={handleContainerMouseDown}
       >
-        <div className=" handle flex h-10 flex-row items-center justify-between bg-slate-500">
+        <div className=" handle flex h-6 flex-row items-center justify-between bg-slate-500">
           <div>
+            {size.width} x {size.height}
             {/* <ArrowBackIcon />
             <ArrowForwardIcon /> */}
           </div>
