@@ -24,7 +24,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   //State for controlling Rnd. Which is neccesary for having a max size button.
   const [position, setPosition] = useState({
     x: 0,
-    y: 0,
+    y: 40,
   });
   const [size, setSize] = useState({
     width: windowSize.width * 0.5,
@@ -39,12 +39,12 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   useEffect(() => {
     if (position.x > 0) {
       const rightGap = windowSize.width - (position.x + size.width);
-      /* console.log("windowsize", windowSize.width);
+      console.log("windowsize", windowSize.width);
       console.log("rightgap", rightGap);
       console.log("position", position);
-      console.log("size", size); */
-      if (rightGap <= 10) {
-        setPosition({ x: 0, y: position.y });
+      console.log("size", size);
+      if (rightGap <= 20) {
+        setPosition({ x: 0, y: windowSize.height * 0.5 });
       }
     }
   }, [windowSize]);
@@ -53,7 +53,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
     <Rnd
       size={{
         width: maxed ? size.width : "100%",
-        height: maxed ? size.height : "95vh",
+        height: maxed ? size.height : "100%",
       }}
       position={{
         x: maxed ? position.x : 0,

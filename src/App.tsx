@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { RndWrapper } from "./components/rndWrapper";
-import { Footer } from "./components/footer";
 import { TestIcon } from "./components/icons";
 import { AnimatePresence } from "framer-motion";
-import { useWindowSize } from "./utils/useWindowSize";
 
 interface RndWrapperItem {
   id: number;
@@ -12,7 +10,6 @@ interface RndWrapperItem {
 
 export default function App() {
   const [rndWrappers, setRndWrappers] = useState<RndWrapperItem[]>([]);
-  const windowSize = useWindowSize();
   function handleClose(id: number) {
     console.log("closing");
     setRndWrappers((prevRndWrappers) =>
@@ -56,37 +53,19 @@ export default function App() {
     });
   }
 
-  if (windowSize.width > 820) {
-    return (
-      <div className="flex h-screen w-screen flex-col ">
-        <main className="flex-1 overflow-hidden bg-slate-700 bg-cover">
-          <AnimatePresence>
-            {rndWrappers.map((rndWrapper) => (
-              <React.Fragment key={rndWrapper.id}>
-                {rndWrapper.component}
-              </React.Fragment>
-            ))}
-          </AnimatePresence>
-          <TestIcon handleOpen={handleAddRndWrapper} />
-        </main>
-        <Footer />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <header className=" h-8 w-full bg-red-300">Header</header>
-        <div className=" flex h-screen w-screen flex-col bg-slate-600">
-          <AnimatePresence>
-            {rndWrappers.map((rndWrapper) => (
-              <React.Fragment key={rndWrapper.id}>
-                {rndWrapper.component}
-              </React.Fragment>
-            ))}
-          </AnimatePresence>
-          <TestIcon handleOpen={handleAddRndWrapper} />
-        </div>
-      </div>
-    );
-  }
+  return (
+    <div className="flex h-screen w-screen flex-col ">
+      <header className=" h-8 w-full bg-red-300">Header</header>
+      <main className={"h-full w-full overflow-hidden bg-slate-700 bg-cover"}>
+        <AnimatePresence>
+          {rndWrappers.map((rndWrapper) => (
+            <React.Fragment key={rndWrapper.id}>
+              {rndWrapper.component}
+            </React.Fragment>
+          ))}
+        </AnimatePresence>
+        <TestIcon handleOpen={handleAddRndWrapper} />
+      </main>
+    </div>
+  );
 }
