@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FitScreenIcon from "@mui/icons-material/FitScreen";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
+import { useWindowSize } from "../utils/useWindowSize";
 
 interface RndWrapperProps {
   handleClose: () => void;
@@ -15,16 +16,15 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   handleClose,
   handleMoveToEnd,
 }) => {
-  /* const grow = useSpring({
-    transform: maxed ? "translate3d(0" : "",
-  }); */
+  const windowSize = useWindowSize();
+
   const handleContainerMouseDown = () => {
     handleMoveToEnd();
   };
   //State for controlling Rnd. Which is neccesary for having a max size button.
   const [position, setPosition] = useState({
-    x: 100,
-    y: 100,
+    x: 0,
+    y: 0,
   });
   const [size, setSize] = useState({
     width: 650,
@@ -32,14 +32,28 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   });
   const [maxed, setMaxed] = useState(true);
   const handleMaxed = () => {
+    handleContainerMouseDown();
     setMaxed(!maxed);
   };
+
+  useEffect(() => {
+    if (position.x > 0) {
+      const rightGap = windowSize.width - (position.x + size.width);
+      /* console.log("windowsize", windowSize.width);
+      console.log("rightgap", rightGap);
+      console.log("position", position);
+      console.log("size", size); */
+      if (rightGap <= 10) {
+        setPosition({ x: 0, y: position.y });
+      }
+    }
+  }, [windowSize]);
 
   return (
     <Rnd
       size={{
         width: maxed ? size.width : "100%",
-        height: maxed ? size.height : "94%",
+        height: maxed ? size.height : "95vh",
       }}
       position={{
         x: maxed ? position.x : 0,
@@ -57,14 +71,15 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
       }}
       disableDragging={maxed ? false : true}
       enableResizing={maxed ? true : false}
-      minWidth={230}
-      minHeight={190}
+      minWidth={200}
+      minHeight={200}
+      maxWidth={"100%"}
       bounds="parent"
       dragHandleClassName="handle"
     >
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, width: size.width, height: size.height }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0, y: 50 }}
         whileHover={maxed ? { scale: 1.005 } : {}}
         className="h-full flex-col items-center justify-center border-2 border-red-600 bg-white"
@@ -72,14 +87,14 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
       >
         <div className=" handle flex h-10 flex-row items-center justify-between bg-slate-500">
           <div>
-            <ArrowBackIcon />
-            <ArrowForwardIcon />
+            {/* <ArrowBackIcon />
+            <ArrowForwardIcon /> */}
           </div>
           <div>
-            <button onClick={handleMaxed} className=" cursor-pointer">
+            <button onPointerDownCapture={handleMaxed}>
               <FitScreenIcon />
             </button>
-            <button onClick={handleClose}>
+            <button onPointerDownCapture={handleClose}>
               <CloseIcon />
             </button>
           </div>

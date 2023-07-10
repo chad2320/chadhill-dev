@@ -20,7 +20,7 @@ export default function App() {
   }
 
   function handleAddRndWrapper() {
-    const id = rndWrappers.length + 1;
+    const id = Math.floor(Math.random() * 10000);
     const newRndWrapper: RndWrapperItem = {
       id,
       component: (
@@ -56,8 +56,8 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col">
-      <main className="flex-1 bg-hero-pattern bg-cover">
+    <div className="min-w-screen flex min-h-screen flex-col ">
+      <main className="flex-1 overflow-hidden bg-slate-700 bg-cover">
         <AnimatePresence>
           {rndWrappers.map((rndWrapper) => (
             <React.Fragment key={rndWrapper.id}>
