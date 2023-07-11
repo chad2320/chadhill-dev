@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RndWrapper } from "./components/rndWrapper";
-import { TestIcon } from "./components/icons";
+import { GamesDemoIcon, MoviesDemoIcon, TestIcon } from "./components/icons";
 import { AnimatePresence } from "framer-motion";
 import { Clock } from "./components/clock";
 
@@ -17,7 +17,7 @@ export default function App() {
     );
   }
 
-  function handleAddRndWrapper() {
+  function handleAddRndWrapper(link: string) {
     const id = Math.floor(Math.random() * 10000);
     const newRndWrapper: RndWrapperItem = {
       id,
@@ -26,6 +26,7 @@ export default function App() {
           key={id}
           handleClose={() => handleClose(id)}
           handleMoveToEnd={() => handleMoveToEnd(id)}
+          link={link}
         />
       ),
     };
@@ -60,7 +61,9 @@ export default function App() {
         <Clock />
       </header>
       <main
-        className={"h-full w-full overflow-hidden bg-hero-pattern bg-cover"}
+        className={
+          "h-[calc(100vh-20px)] w-full overflow-hidden bg-hero-pattern bg-cover"
+        }
       >
         <AnimatePresence>
           {rndWrappers.map((rndWrapper) => (
@@ -69,7 +72,9 @@ export default function App() {
             </React.Fragment>
           ))}
         </AnimatePresence>
-        <TestIcon handleOpen={handleAddRndWrapper} />
+        <GamesDemoIcon handleOpen={handleAddRndWrapper} />
+        <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
+        {/* <TestIcon handleOpen={handleAddRndWrapper} /> */}
       </main>
     </div>
   );

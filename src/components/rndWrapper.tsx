@@ -10,11 +10,13 @@ import { useWindowSize } from "../utils/useWindowSize";
 interface RndWrapperProps {
   handleClose: () => void;
   handleMoveToEnd: () => void;
+  link: string;
 }
 
 export const RndWrapper: React.FC<RndWrapperProps> = ({
   handleClose,
   handleMoveToEnd,
+  link,
 }) => {
   const windowSize = useWindowSize();
 
@@ -53,7 +55,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
     <Rnd
       size={{
         width: maxed ? size.width : "100%",
-        height: maxed ? size.height : "100%",
+        height: maxed ? size.height : windowSize.height - 20,
       }}
       position={{
         x: maxed ? position.x : 0,
@@ -81,8 +83,10 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0, y: 50 }}
-        whileHover={maxed ? { scale: 1.005 } : {}}
-        className="h-full flex-col items-center justify-center rounded-lg border-2 border-violet-500 bg-white"
+        whileHover={
+          windowSize.width >= 820 ? (maxed ? { scale: 1.005 } : {}) : {}
+        }
+        className="h-full flex-col items-center justify-center rounded-sm border-2 border-violet-500 bg-white"
         onClick={handleContainerMouseDown}
       >
         <div className=" handle flex h-6 flex-row items-center justify-between bg-slate-500">
@@ -100,20 +104,8 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             </button>
           </div>
         </div>
-        <div className="flex w-full flex-col">
-          <motion.div
-            className="h-20 w-20 bg-purple-950"
-            whileHover={{
-              scale: [1, 2, 2, 1, 1],
-              rotate: [0, 0, 270, 270, 0],
-              borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-            }}
-            transition={{
-              duration: 2,
-              ease: "easeInOut",
-              times: [0, 0.2, 0.5, 0.8, 1],
-            }}
-          />
+        <div className="flex h-full w-full flex-col">
+          <iframe className=" h-full pb-6" src={link} />
         </div>
       </motion.div>
     </Rnd>
