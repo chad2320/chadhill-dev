@@ -16,7 +16,9 @@ export const TestIcon: React.FC<IconProps> = ({ handleOpen }) => {
 
 export const GamesDemoIcon: React.FC<IconProps> = ({ handleOpen }) => {
   return (
-    <button onClick={() => handleOpen("http://chadsgames.com/")}>
+    <button
+      onClick={() => handleOpen("https://finalgamesdemo-frontend.vercel.app/")}
+    >
       <div className="h-18 w-18 m-2 flex flex-col items-center justify-center">
         <img src={require("../assets/gamesIcon.ico")} alt=":(" />
         <span className=" font-chicago text-xs text-white">Chads Games</span>
@@ -27,7 +29,9 @@ export const GamesDemoIcon: React.FC<IconProps> = ({ handleOpen }) => {
 
 export const MoviesDemoIcon: React.FC<IconProps> = ({ handleOpen }) => {
   return (
-    <button onClick={() => handleOpen("http://chadsmovies.com/")}>
+    <button
+      onClick={() => handleOpen("https://finalmoviedemo-frontend.vercel.app/")}
+    >
       <div className="h-18 w-18 m-2 flex flex-col items-center justify-center">
         <img src={require("../assets/moviesIcon.ico")} alt=":(" />
         <span className=" font-chicago text-xs text-white">Chads Movies</span>
