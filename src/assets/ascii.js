@@ -24,7 +24,7 @@ export const chad = `
        \\\\                           //
         \\\\\\                       ///
          \\\\\\                    ///
-            \\\\==================///
+           \\\\==================//
 `;
 
 export const keyboardInitial = `
@@ -51,7 +51,7 @@ export const keyboard1 = `
  |...| @@ | @@ | @@ |    | @@ | @@ | @@ | @ |
  |   |@@@@ @@@@ @@@@      @@@@ @@@@ @@@@ @@@
  | @ |"@@" "@@" "@@"      "@@" "@@" "@@" "@"
-  @@@
+ '@@@'/
   "@" KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -66,7 +66,7 @@ export const keyboard2 = `
  | @ |....| @@ | @@ |    | @@ | @@ | @@ | @ |
   @@@|    |@@@@ @@@@      @@@@ @@@@ @@@@ @@@
   "@"| @@ |"@@" "@@"      "@@" "@@" "@@" "@"
-      @@@@
+   \\' @@@@ '/
  KKKK "@@" KKKK KKKK KKKK KKKK KKKK KKKK KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -81,7 +81,7 @@ export const keyboard3 = `
  | @ | @@ |....| @@ |    | @@ | @@ | @@ | @ |
   @@@ @@@@|    |@@@@      @@@@ @@@@ @@@@ @@@
   "@" "@@"| @@ |"@@"      "@@" "@@" "@@" "@"
-           @@@@
+        \\' @@@@ '/
  KKKK KKKK "@@" KKKK KKKK KKKK KKKK KKKK KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -96,7 +96,7 @@ export const keyboard4 = `
  | @ | @@ | @@ |... |    | @@ | @@ | @@ | @ |
   @@@ @@@@ @@@@|    |     @@@@ @@@@ @@@@ @@@
   "@" "@@" "@@"| @@ |     "@@" "@@" "@@" "@"
-                @@@@
+             \\' @@@@ '/
  KKKK KKKK KKKK "@@" KKKK KKKK KKKK KKKK KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -111,7 +111,7 @@ export const keyboard5 = `
  | @ | @@ | @@ | @@ |    |....| @@ | @@ | @ |
   @@@ @@@@ @@@@ @@@@     |    |@@@@ @@@@ @@@
   "@" "@@" "@@" "@@"     | @@ |"@@" "@@" "@"
-                          @@@@
+                       \\' @@@@ '/
  KKKK KKKK KKKK KKKK KKKK "@@" KKKK KKKK KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -126,7 +126,7 @@ export const keyboard6 = `
  | @ | @@ | @@ | @@ |    | @@ |....| @@ | @ |
   @@@ @@@@ @@@@ @@@@      @@@@|    |@@@@ @@@
   "@" "@@" "@@" "@@"      "@@"| @@ |"@@" "@"
-                               @@@@
+                            \\' @@@@ '/
  KKKK KKKK KKKK KKKK KKKK KKKK "@@" KKKK KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -141,7 +141,7 @@ export const keyboard7 = `
  | @ | @@ | @@ | @@ |    | @@ | @@ |... | @ |
   @@@ @@@@ @@@@ @@@@      @@@@ @@@@|    |@@@
   "@" "@@" "@@" "@@"      "@@" "@@"| @@ |"@"
-                                    @@@@
+                                 \\' @@@@ '/
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK "@@" KKKK
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
@@ -156,7 +156,7 @@ export const keyboard8 = `
  | @ | @@ | @@ | @@ |    | @@ | @@ | @@ |...|
   @@@ @@@@ @@@@ @@@@      @@@@ @@@@ @@@@|   |
   "@" "@@" "@@" "@@"      "@@" "@@" "@@"| @ |
-                                         @@@
+                                      \\' @@@ '/
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK "@"
  KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK KKKK
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK

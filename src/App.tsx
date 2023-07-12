@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { RndWrapper } from "./components/rndWrapper";
 import { GamesDemoIcon, MoviesDemoIcon } from "./components/icons";
 import { AnimatePresence } from "framer-motion";
 import { Clock } from "./components/clock";
 import { InitialLoading } from "./components/initialLoading";
+import { motion } from "framer-motion";
 
 interface RndWrapperItem {
   id: number;
@@ -14,7 +15,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   const finishLoading = () => {
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   const [rndWrappers, setRndWrappers] = useState<RndWrapperItem[]>([]);
@@ -64,27 +67,34 @@ export default function App() {
     return <InitialLoading finishLoading={finishLoading} />;
   } else {
     return (
-      <div className="flex h-screen w-screen flex-col ">
-        <header className=" flex h-5 w-full flex-row justify-between bg-violet-500">
-          <p className="font-chicago text-sm">Chad Suite</p>
-          <Clock />
-        </header>
-        <main
-          className={
-            "h-[calc(100vh-20px)] w-full overflow-hidden bg-hero-pattern bg-cover"
-          }
+      <div className=" h-screen w-screen bg-black ">
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex h-screen w-screen flex-col "
         >
-          <AnimatePresence>
-            {rndWrappers.map((rndWrapper) => (
-              <React.Fragment key={rndWrapper.id}>
-                {rndWrapper.component}
-              </React.Fragment>
-            ))}
-          </AnimatePresence>
-          <GamesDemoIcon handleOpen={handleAddRndWrapper} />
-          <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
-          {/* <TestIcon handleOpen={handleAddRndWrapper} /> */}
-        </main>
+          <header className=" flex h-5 w-full flex-row justify-between bg-violet-500">
+            <p className="font-chicago text-sm">Chad Suite</p>
+            <Clock />
+          </header>
+          <main
+            className={
+              "h-[calc(100vh-20px)] w-full overflow-hidden bg-hero-pattern bg-cover"
+            }
+          >
+            <AnimatePresence>
+              {rndWrappers.map((rndWrapper) => (
+                <React.Fragment key={rndWrapper.id}>
+                  {rndWrapper.component}
+                </React.Fragment>
+              ))}
+            </AnimatePresence>
+            <GamesDemoIcon handleOpen={handleAddRndWrapper} />
+            <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
+            {/* <TestIcon handleOpen={handleAddRndWrapper} /> */}
+          </main>
+        </motion.div>
       </div>
     );
   }
