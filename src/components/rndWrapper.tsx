@@ -6,6 +6,7 @@ import FitScreenIcon from "@mui/icons-material/FitScreen";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import { useWindowSize } from "../utils/useWindowSize";
+import { set } from "animejs";
 
 interface RndWrapperProps {
   handleClose: () => void;
@@ -18,6 +19,46 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   handleMoveToEnd,
   link,
 }) => {
+  //State for controlling the url input
+  const [url, setUrl] = useState(link);
+  const [urlInput, setUrlInput] = useState(link);
+  const [history, setHistory] = useState<string[]>([link]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleUrlInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUrlInput(event.target.value);
+  };
+
+  const navigateToUrl = (newUrl: string) => {
+    setUrl(newUrl);
+    setUrlInput(newUrl);
+    setHistory((prevHistory) => [...prevHistory, url]);
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+    console.log("history", history);
+  };
+
+  const handleForward = () => {
+    if (currentIndex < history.length - 1) {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setUrl(history[currentIndex + 1]);
+      setUrlInput(history[currentIndex + 1]);
+    }
+  };
+
+  const handleBackward = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prevIndex) => prevIndex - 1);
+      setUrl(history[currentIndex - 1]);
+      setUrlInput(history[currentIndex - 1]);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      navigateToUrl(urlInput);
+    }
+  };
+
   const windowSize = useWindowSize();
 
   const handleContainerMouseDown = () => {
@@ -54,7 +95,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   return (
     <Rnd
       size={{
-        width: maxed ? size.width : "100%",
+        width: maxed ? size.width : windowSize.width,
         height: maxed ? size.height : windowSize.height - 20,
       }}
       position={{
@@ -89,23 +130,62 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
         className="h-full flex-col items-center justify-center rounded-sm border-2 border-violet-500 bg-white"
         onClick={handleContainerMouseDown}
       >
-        <div className=" handle flex h-6 flex-row items-center justify-between bg-slate-500">
-          <div>
-            {size.width} x {size.height}
-            {/* <ArrowBackIcon />
-            <ArrowForwardIcon /> */}
+        <div className=" handle flex h-12 flex-col  bg-slate-500">
+          <div className="ml-1 mr-1 mt-1 flex h-6 flex-row items-center justify-between">
+            <div>
+              <button onPointerDownCapture={handleBackward}>
+                <ArrowBackIcon />
+              </button>
+              <button onPointerDownCapture={handleForward}>
+                <ArrowForwardIcon />
+              </button>
+            </div>
+            <div className="flex w-4/6">
+              <input
+                className="focus:shadow-outline h-5 w-full appearance-none rounded border py-2 pl-3 leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                value={urlInput}
+                onChange={handleUrlInputChange}
+                onKeyDown={handleKeyDown}
+              />
+            </div>
+            <div>
+              <button onPointerDownCapture={handleMaxed}>
+                <FitScreenIcon />
+              </button>
+              <button onPointerDownCapture={handleClose}>
+                <CloseIcon />
+              </button>
+            </div>
           </div>
-          <div>
-            <button onPointerDownCapture={handleMaxed}>
-              <FitScreenIcon />
+          <div className="flex flex-row text-sm">
+            <button
+              className="border-1px ml-1 flex h-4 w-[80px] flex-row items-center justify-around rounded-lg border-violet-400 bg-slate-400 font-chicago"
+              onClick={() => navigateToUrl("https://www.chadsgames.com")}
+            >
+              <img
+                className="m-0 h-[4] w-4 rounded-lg p-0"
+                src={require("../assets/gamesIcon.ico")}
+                alt={":)"}
+              />
+              Games
             </button>
-            <button onPointerDownCapture={handleClose}>
-              <CloseIcon />
+            <button
+              className="border-1px ml-1 flex h-4 w-[80px] flex-row items-center justify-around rounded-lg border-violet-400 bg-slate-400 p-[2px] font-chicago"
+              onClick={() => navigateToUrl("https://www.chadsmovies.com")}
+            >
+              <img
+                className="m-0 h-[4] w-4 rounded-lg p-0"
+                src={require("../assets/moviesIcon.ico")}
+                alt={":)"}
+              />
+              Movies
             </button>
           </div>
         </div>
+
         <div className="flex h-full w-full flex-col">
-          <iframe className=" h-full pb-6" src={link} />
+          <iframe className=" h-full pb-12" src={url} />
         </div>
       </motion.div>
     </Rnd>
