@@ -82,8 +82,8 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
     y: 40,
   });
   const [size, setSize] = useState({
-    width: windowSize.width * 0.5,
-    height: windowSize.height * 0.25,
+    width: windowSize.width * 0.8,
+    height: windowSize.height * 0.5,
   });
   const [maxed, setMaxed] = useState(true);
   const handleMaxed = () => {
@@ -126,8 +126,8 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
       }}
       disableDragging={maxed ? false : true}
       enableResizing={maxed ? true : false}
-      minWidth={200}
-      minHeight={200}
+      minWidth={280}
+      minHeight={400}
       maxWidth={"100%"}
       bounds="parent"
       dragHandleClassName="handle"
@@ -144,7 +144,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
       >
         <div className=" handle flex h-12 flex-col justify-around  bg-[#4B47DE]">
           <div className="ml-1 mr-1 mt-[1px] flex h-6 flex-row items-center justify-between">
-            <div>
+            <div className="flex flex-row">
               <button
                 onPointerDownCapture={handleBackward}
                 className="text-xs text-white "
@@ -160,7 +160,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             </div>
             <div className="flex w-4/6">
               <input
-                className="focus:shadow-outline h-5 w-full appearance-none rounded border border-[E050FA] bg-[#5078FA] py-2 pl-3 font-chicago  text-white shadow focus:outline-none"
+                className="focus:shadow-outline h-5 w-full appearance-none rounded border border-[E050FA] bg-[#5078FA] py-2 pl-3 font-chicago text-sm  text-white shadow focus:outline-none"
                 type="text"
                 value={urlInput}
                 onPointerDown={(e) => e.stopPropagation()}
@@ -168,7 +168,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
                 onKeyDown={handleKeyDown}
               />
             </div>
-            <div>
+            <div className="flex flex-row">
               <button onPointerDownCapture={handleMaxed} className="text-white">
                 <FitScreenIcon />
               </button>

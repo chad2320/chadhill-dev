@@ -12,7 +12,6 @@ import {
   keyboard7,
   keyboard8,
 } from "../assets/ascii";
-import { set } from "animejs";
 
 interface TypewriterProps {
   text: string;
@@ -58,15 +57,15 @@ export const TextSection: React.FC<TextSectionProps> = ({ stop }) => {
     );
   } else if (stop === "arrived") {
     return (
-      <div className=" h-4 font-chicago text-sm text-green-700">
+      <div className=" h-4 font-chicago text-sm text-white">
         Chads Logging You In{" "}
         {<Typewriter text={"..."} speed={100} loop={true} />}
       </div>
     );
   } else {
     return (
-      <div className=" h-4 font-chicago text-sm text-green-700">
-        Welcome Back Chad
+      <div className=" h-4 font-chicago text-sm text-white">
+        Log In Succesful
       </div>
     );
   }
@@ -90,6 +89,7 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
   const [password, setPassword] = useState<string>("");
   const [finished, setFinished] = useState<boolean>(false);
   const [initialDelay, setInitialDelay] = useState<boolean>(false);
+  const [keyboardExtraWait, setKeyboardExtraWait] = useState<boolean>(false);
 
   const keyboardArray = [
     keyboard1,
@@ -138,11 +138,21 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
   }, [chadLoaded]);
 
   useEffect(() => {
+    if (haveKeyboard) {
+      const timer = setTimeout(() => {
+        setKeyboardExtraWait(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [haveKeyboard]);
+
+  //Handle Rendering updating Keyboard
+  useEffect(() => {
     if (finished) {
       setKeyboard(keyboardInitial);
       return;
     }
-    if (haveKeyboard) {
+    if (keyboardExtraWait) {
       const timer = setTimeout(() => {
         const userLength = user.length;
         const passwordLength = password.length;
@@ -166,7 +176,8 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
       }, 150);
       return () => clearTimeout(timer);
     }
-  }, [haveKeyboard, keyboard]);
+  }, [haveKeyboard, keyboard, keyboardExtraWait]);
+
   return (
     <div className="h-screen w-screen bg-black">
       <TextSection stop={chadLoaded} />
