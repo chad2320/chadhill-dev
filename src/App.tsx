@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import { RndWrapper } from "./components/rndWrapper";
 import { GamesDemoIcon, MoviesDemoIcon } from "./components/icons";
@@ -75,7 +76,10 @@ export default function App() {
           className="flex h-screen w-screen flex-col "
         >
           <header className=" flex h-5 w-full flex-row justify-between bg-violet-500">
-            <p className="font-chicago text-sm">Chad Suite</p>
+            <div className="w-26">
+              <p className="font-chicago text-sm">Chad Suite</p>
+            </div>
+
             <Clock />
           </header>
           <main

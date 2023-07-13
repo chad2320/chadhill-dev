@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import click1 from "../assets/audio/click1.mp3";
+import click2 from "../assets/audio/click2.mp3";
+import click3 from "../assets/audio/click3.mp3";
+import click4 from "../assets/audio/click4.mp3";
+
 import {
   chad,
   keyboardInitial,
@@ -65,7 +70,7 @@ export const TextSection: React.FC<TextSectionProps> = ({ stop }) => {
   } else {
     return (
       <div className=" h-4 font-chicago text-sm text-white">
-        Log In Succesful
+        Have fun! - Chad
       </div>
     );
   }
@@ -90,6 +95,12 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
   const [finished, setFinished] = useState<boolean>(false);
   const [initialDelay, setInitialDelay] = useState<boolean>(false);
   const [keyboardExtraWait, setKeyboardExtraWait] = useState<boolean>(false);
+  const [calledChad, setCalledChad] = useState<boolean>(false);
+  const clickArray = [click1, click2, click3, click4];
+
+  const playBite = () => {
+    new Audio(clickArray[Math.floor(Math.random() * 4)]).play();
+  };
 
   const keyboardArray = [
     keyboard1,
@@ -102,12 +113,15 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
     keyboard8,
   ];
 
+  //Once Call Chad Button Is Clicked. Start The Login Sequence
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setInitialDelay(true);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (calledChad) {
+      const timer = setTimeout(() => {
+        setInitialDelay(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [calledChad]);
 
   //Handle whether or not Chad Image has been loaded
   useEffect(() => {
@@ -127,21 +141,22 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
     }
   });
 
-  //When Chad Is Loaded, add keyboard
+  //When Chad Is Loaded, add keyboard render
   useEffect(() => {
     if (chadLoaded === "arrived") {
       const timer = setTimeout(() => {
         setHaveKeyboard(true);
-      }, 1000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [chadLoaded]);
 
+  //When keyboard is rendered, start the keyboard animation
   useEffect(() => {
     if (haveKeyboard) {
       const timer = setTimeout(() => {
         setKeyboardExtraWait(true);
-      }, 1000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [haveKeyboard]);
@@ -164,8 +179,10 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
         }
         if (userFull.length !== userLength) {
           setUser(userFull.slice(0, userLength + 1));
+          playBite();
         } else if (passwordFull.length !== passwordLength) {
           setPassword(passwordFull.slice(0, passwordLength + 1));
+          playBite();
         } else {
           setFinished(true);
           setChadLoaded("finished");
@@ -178,35 +195,53 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
     }
   }, [haveKeyboard, keyboard, keyboardExtraWait]);
 
-  return (
-    <div className="h-screen w-screen bg-black">
-      <TextSection stop={chadLoaded} />
-      <pre className="text-[8px] text-white ">{loadingChad}</pre>
-      {haveKeyboard && (
-        <motion.pre
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-[8px] text-white "
+  //Render the request to grab chad. Neccesary for playing audio
+  if (!calledChad) {
+    return (
+      <div className="h-screen w-screen bg-black">
+        <p className="font-chicago text-lg text-white">
+          Looks Like You Are Requesting Access To Chads Desktop.
+        </p>
+        <button
+          onClick={() => setCalledChad(true)}
+          className="rounded-md border border-white p-1 font-chicago text-[10px] text-white"
         >
-          {keyboard}
-        </motion.pre>
-      )}
-      {haveKeyboard && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className=" bg-black"
-        >
-          <div className="w-30  font-chicago text-[10px] text-white">
-            Username: {user}
-          </div>
-          <div className="w-34  font-chicago text-[10px] text-white">
-            Password: {password}
-          </div>
-        </motion.div>
-      )}
-    </div>
-  );
+          Click To Call Chad
+        </button>
+      </div>
+    );
+  } else {
+    //Playing the login animation
+    return (
+      <div className="h-screen w-screen bg-black">
+        <TextSection stop={chadLoaded} />
+        <pre className="text-[8px] text-white ">{loadingChad}</pre>
+        {haveKeyboard && (
+          <motion.pre
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-[8px] text-white "
+          >
+            {keyboard}
+          </motion.pre>
+        )}
+        {haveKeyboard && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className=" bg-black"
+          >
+            <div className="w-30  font-chicago text-[10px] text-white">
+              Username: {user}
+            </div>
+            <div className="w-34  font-chicago text-[10px] text-white">
+              Password: {password}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    );
+  }
 };
