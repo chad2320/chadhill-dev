@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import { Clock } from "./components/clock";
 import { InitialLoading } from "./components/initialLoading";
 import { motion } from "framer-motion";
-import { inject } from "@vercel/analytics/*";
+import { inject } from "@vercel/analytics";
 
 interface RndWrapperItem {
   id: number;
