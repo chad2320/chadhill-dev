@@ -7,6 +7,7 @@ import { Clock } from "./components/clock";
 import { InitialLoading } from "./components/initialLoading";
 import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
+import { Background } from "./components/background/background";
 
 interface RndWrapperItem {
   id: number;
@@ -16,12 +17,23 @@ interface RndWrapperItem {
 inject();
 export default function App() {
   const [loading, setLoading] = useState(true);
+  //const [renderDesktop, setRenderDesktop] = useState(false);
 
   const finishLoading = () => {
     setTimeout(() => {
+      console.log("loading true");
       setLoading(false);
     }, 2000);
   };
+
+  /* useEffect(() => {
+    if (loading) return;
+    const timer = setTimeout(() => {
+      console.log("renderDesktop true");
+      setRenderDesktop(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [loading]); */
 
   const [rndWrappers, setRndWrappers] = useState<RndWrapperItem[]>([]);
   function handleClose(id: number) {
@@ -66,25 +78,29 @@ export default function App() {
       return prevRndWrappers;
     });
   }
-  if (loading) {
-    return <InitialLoading finishLoading={finishLoading} />;
-  } else {
-    return (
-      <div className=" h-screen w-screen bg-black ">
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="flex h-screen w-screen flex-col "
-        >
-          <header className=" flex h-5 w-full flex-row justify-between bg-violet-500">
+
+  return (
+    <div className=" h-screen w-screen">
+      {loading && <InitialLoading finishLoading={finishLoading} />}
+      {!loading && (
+        <div className="flex h-screen w-screen flex-col  ">
+          {/* <Background /> */}
+          <motion.header
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className=" ove flex h-5 w-full flex-row justify-between bg-violet-500"
+          >
             <div className="w-26">
               <p className="font-chicago text-sm">Chad Suite</p>
             </div>
 
             <Clock />
-          </header>
-          <main
+          </motion.header>
+          <motion.main
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
             className={
               "h-[calc(100vh-20px)] w-full overflow-hidden bg-hero-pattern bg-cover"
             }
@@ -98,10 +114,49 @@ export default function App() {
             </AnimatePresence>
             <GamesDemoIcon handleOpen={handleAddRndWrapper} />
             <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
-            {/* <TestIcon handleOpen={handleAddRndWrapper} /> */}
-          </main>
-        </motion.div>
-      </div>
-    );
-  }
+          </motion.main>
+        </div>
+      )}
+    </div>
+  );
 }
+
+/* if (loading) {
+  return <InitialLoading finishLoading={finishLoading} />;
+} else {
+  return (
+    <div className=" h-screen w-screen bg-black ">
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        className="flex h-screen w-screen flex-col "
+      >
+        <header className=" flex h-5 w-full flex-row justify-between bg-violet-500">
+          <div className="w-26">
+            <p className="font-chicago text-sm">Chad Suite</p>
+          </div>
+
+          <Clock />
+        </header>
+        <main
+          className={
+            "h-[calc(100vh-20px)] w-full overflow-hidden bg-hero-pattern bg-cover"
+          }
+        >
+          <AnimatePresence>
+            {rndWrappers.map((rndWrapper) => (
+              <React.Fragment key={rndWrapper.id}>
+                {rndWrapper.component}
+              </React.Fragment>
+            ))}
+          </AnimatePresence>
+          <GamesDemoIcon handleOpen={handleAddRndWrapper} />
+          <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
+          
+        </main>
+      </motion.div>
+    </div>
+  );
+} 
+*/

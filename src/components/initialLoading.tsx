@@ -195,53 +195,58 @@ export const InitialLoading: React.FC<InitialLoadingProps> = ({
     }
   }, [haveKeyboard, keyboard, keyboardExtraWait]);
 
-  //Render the request to grab chad. Neccesary for playing audio
-  if (!calledChad) {
-    return (
-      <div className="h-screen w-screen bg-black">
-        <p className="font-chicago text-lg text-white">
-          Looks Like You Are Requesting Access To Chads Desktop.
-        </p>
-        <button
-          onClick={() => setCalledChad(true)}
-          className="rounded-md border border-white p-1 font-chicago text-[10px] text-white"
+  //Playing the login animation
+  return (
+    <div className="h-screen w-screen bg-black">
+      {!calledChad && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{ duration: 2 }}
         >
-          Click To Call Chad
-        </button>
-      </div>
-    );
-  } else {
-    //Playing the login animation
-    return (
-      <div className="h-screen w-screen bg-black">
-        <TextSection stop={chadLoaded} />
-        <pre className="text-[8px] text-white ">{loadingChad}</pre>
-        {haveKeyboard && (
-          <motion.pre
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="text-[8px] text-white "
+          <p className="font-chicago text-lg text-white">
+            Looks Like You Are Requesting Access To Chads Desktop.
+          </p>
+          <button
+            onClick={() => setCalledChad(true)}
+            className="rounded-md border border-white p-1 font-chicago text-[10px] text-white"
           >
-            {keyboard}
-          </motion.pre>
-        )}
-        {haveKeyboard && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className=" bg-black"
-          >
-            <div className="w-30  font-chicago text-[10px] text-white">
-              Username: {user}
-            </div>
-            <div className="w-34  font-chicago text-[10px] text-white">
-              Password: {password}
-            </div>
-          </motion.div>
-        )}
-      </div>
-    );
-  }
+            Click To Call Chad
+          </button>
+        </motion.div>
+      )}
+      {calledChad && (
+        <div>
+          <TextSection stop={chadLoaded} />
+          <pre className="text-[8px] text-white ">{loadingChad}</pre>
+          {haveKeyboard && (
+            <motion.pre
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="text-[8px] text-white "
+            >
+              {keyboard}
+            </motion.pre>
+          )}
+          {haveKeyboard && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className=" bg-black"
+            >
+              <div className="w-30  font-chicago text-[10px] text-white">
+                Username: {user}
+              </div>
+              <div className="w-34  font-chicago text-[10px] text-white">
+                Password: {password}
+              </div>
+            </motion.div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 };
