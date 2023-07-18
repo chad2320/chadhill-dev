@@ -28,7 +28,7 @@ export const Vortex = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2, delay: 1.5 }}
-      className="absolute top-[30%]  flex h-60 w-60 items-center  justify-center rounded-full bg-violet-600"
+      className="absolute flex h-60 w-60 items-center  justify-center rounded-full bg-violet-600"
     >
       <div className="relative h-full w-full items-center justify-center overflow-hidden rounded-full">
         <AnimatePresence>

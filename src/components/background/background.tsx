@@ -7,7 +7,11 @@ export const Background = () => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
-
+  const container = {
+    perspective: "100px",
+    transform:
+      "translate3d(-50%, -50%, 0) rotate3d(1, 0, 0, 55deg) rotate3d(0, 0, 1, 45deg)",
+  };
   const interval = 0.5;
   const duration = 10;
   const planetRings = {
@@ -42,7 +46,7 @@ export const Background = () => {
 
   return (
     <motion.div
-      className=" relative m-0 flex h-screen w-screen flex-col items-center justify-end"
+      className=" relative m-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={fadeInAnimation}
@@ -69,20 +73,40 @@ export const Background = () => {
       ></motion.div>
 
       <Vortex />
-      <motion.div className="absolute left-1/2 top-1/2">
-        <AnimatePresence>
-          {Array.from(Array(beamCount).keys()).map((i) => (
-            <motion.div
-              custom={i}
-              key={i}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={planetRings}
-              className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
-            />
-          ))}
-        </AnimatePresence>
+      <motion.div className="flex items-center justify-center">
+        <motion.div
+          animate={{
+            opacity: [0, 1],
+            y: 20,
+            rotateX: 40,
+            transformPerspective: 30,
+          }}
+          transition={{
+            delay: 2,
+            duration: 2,
+          }}
+          className=" z-50 h-[95px] w-[60px] border-l-[1px] border-r-[1px] border-violet-900 bg-gradient-to-t from-indigo-500 from-30%"
+        >
+          <div>
+            <AnimatePresence>
+              {Array.from(Array(5).keys()).map((i) => (
+                <motion.div
+                  initial={{ y: 0 }}
+                  key={i}
+                  animate={{
+                    y: [0, 100],
+                  }}
+                  transition={{
+                    duration: 10,
+                    delay: i * 2 - 10,
+                    repeat: Infinity,
+                  }}
+                  className="absolute h-[11px] w-full border-b-[0.1px] border-t-[1px] border-violet-500 bg-transparent"
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );

@@ -8,6 +8,7 @@ import { InitialLoading } from "./components/initialLoading";
 import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
 import { Background } from "./components/background/background";
+import { Background2 } from "./components/background/background copy";
 
 interface RndWrapperItem {
   id: number;
@@ -80,11 +81,12 @@ export default function App() {
   }
 
   return (
-    <div className=" h-screen w-screen">
+    <div className=" h-screen w-screen overflow-hidden">
       {loading && <InitialLoading finishLoading={finishLoading} />}
       {!loading && (
-        <div className="flex h-screen w-screen flex-col  ">
-          {/* <Background /> */}
+        <div className="flex h-screen w-screen flex-col overflow-hidden  ">
+          <Background />
+          {/* <Background2 /> */}
 
           <motion.header
             initial={{ opacity: 0 }}
@@ -104,9 +106,9 @@ export default function App() {
             transition={{ duration: 1, delay: 1 }}
             className={" h-[calc(100vh-20px)] w-full overflow-hidden "}
           >
-            <h1 className="backgroundText font-chicago text-red-500">
+            {/* <h1 className="backgroundText  font-chicago text-red-500">
               Chads Desktop Chads Desktop
-            </h1>
+            </h1> */}
             <AnimatePresence>
               {rndWrappers.map((rndWrapper) => (
                 <React.Fragment key={rndWrapper.id}>
