@@ -16,8 +16,7 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  //const [renderDesktop, setRenderDesktop] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const finishLoading = () => {
     setTimeout(() => {
@@ -25,15 +24,6 @@ export default function App() {
       setLoading(false);
     }, 2000);
   };
-
-  /* useEffect(() => {
-    if (loading) return;
-    const timer = setTimeout(() => {
-      console.log("renderDesktop true");
-      setRenderDesktop(true);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [loading]); */
 
   const [rndWrappers, setRndWrappers] = useState<RndWrapperItem[]>([]);
   function handleClose(id: number) {

@@ -1,13 +1,63 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Vortex } from "./vortex";
+
+export const Vortex = () => {
+  const duration = 21;
+  const interval = 0.3;
+  const sunChild = {
+    visible: (i: number) => ({
+      scale: [1.5, 0],
+      opacity: [0, 0.5, 0.7, 0.2],
+      borderRadius: ["30%", "45%"],
+      rotate: [0, 720],
+      transition: {
+        duration: duration,
+        repeat: Infinity,
+        delay: i * interval - duration,
+      },
+    }),
+    hidden: { opacity: 0, scale: 1 },
+  };
+
+  const beamCount = Math.round(duration / interval);
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 2, delay: 1.5 }}
+      className="absolute flex h-60 w-60 items-center  justify-center rounded-full bg-gradient-radial from-violet-900 via-violet-700 to-violet-500"
+    >
+      <div className="relative h-full w-full items-center justify-center overflow-hidden rounded-full">
+        {Array.from(Array(beamCount).keys()).map((i) => (
+          <motion.div
+            custom={i}
+            key={i}
+            animate="visible"
+            variants={sunChild}
+            className="top-0/2 absolute z-0 h-60 w-60  border-4 border-[#2e1065]  bg-transparent"
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 export const Background = () => {
   const fadeInAnimation = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden: {},
+    visible: {
+      background: [
+        "linear-gradient(to right,black 15%, skyblue 45%,skyblue 55%, black 85%)",
+        "linear-gradient(to right,black 0%, skyblue 30%,skyblue 70%, black 100%)",
+        "linear-gradient(to right,black 15%, skyblue 45%,skyblue 55%, black 85%)",
+      ],
+      transition: {
+        duration: 10,
+        repeat: Infinity,
+        delay: 4,
+      },
+    },
   };
-
   const variant1 = {
     visible: (i: number) => ({
       y: [0, 100],
@@ -22,28 +72,32 @@ export const Background = () => {
 
   return (
     <motion.div
-      className=" relative m-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
-      initial="hidden"
-      animate="visible"
-      variants={fadeInAnimation}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: -1,
-        backgroundColor: "#000000",
-      }}
+      className=" absolute z-[-1] m-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
+      initial={{ opacity: 0, backgroundColor: "#000000" }}
+      animate={{ opacity: 1, backgroundColor: "#000000" }}
     >
       <motion.div
-        initial={{ opacity: 0, backgroundColor: "#000000" }}
-        animate={{
-          opacity: 1,
-        }}
-        transition={{ duration: 2, delay: 2 }}
-        className="absolute inset-0 z-0 m-0 h-full w-full bg-gradient-to-t from-black from-40% via-sky-500 via-50% to-black to-60%"
-      ></motion.div>
+        initial="hidden"
+        animate="visible"
+        variants={fadeInAnimation}
+        className="absolute inset-0 z-0 m-0 h-full w-full"
+      >
+        <motion.div
+          animate={{
+            background: [
+              "linear-gradient(to top,black 30%, transparent 47%,transparent 53%, black 70%)",
+              "linear-gradient(to top,black 25%, transparent 45%,transparent 55%, black 75%)",
+              "linear-gradient(to top,black 30%, transparent 47%,transparent 53%, black 70%)",
+            ],
+            transition: {
+              duration: 10,
+              repeat: Infinity,
+              delay: 4,
+            },
+          }}
+          className="h-full w-full"
+        />
+      </motion.div>
 
       <Vortex />
       <motion.div className="flex items-center justify-center">
@@ -58,7 +112,7 @@ export const Background = () => {
             delay: 2,
             duration: 2,
           }}
-          className=" z-50 h-[95px] w-[60px] border-l-[1px] border-r-[1px] border-violet-900 bg-gradient-to-t from-indigo-500 from-30%"
+          className=" z-50 h-[95px] w-[90px] border-l-[1px] border-r-[1px] border-violet-900 bg-gradient-to-t from-indigo-500 from-30%"
         >
           {Array.from(Array(5).keys()).map((i) => (
             <motion.div

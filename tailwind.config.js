@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "hero-pattern": "url('/src/assets/wallpaper.jpg')",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       fontFamily: {
         chicago: ["Chicago"],
