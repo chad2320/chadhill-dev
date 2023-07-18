@@ -10,4 +10,22 @@
 body {
   overflow: hidden;
   background-color: black;
+  perspective: 3000px;
+  perspective-origin: 50% 50%;
+}
+
+.backgroundText {
+  display: inline-block;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) rotate3d(1, 0, 0, 60deg)
+    rotate3d(0, 0, 1, -55deg);
+  z-index: -1;
+  font-weight: 200;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 250px;
+  letter-spacing: -40px;
 }

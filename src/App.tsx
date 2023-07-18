@@ -16,7 +16,7 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   //const [renderDesktop, setRenderDesktop] = useState(false);
 
   const finishLoading = () => {
@@ -85,11 +85,12 @@ export default function App() {
       {!loading && (
         <div className="flex h-screen w-screen flex-col  ">
           {/* <Background /> */}
+
           <motion.header
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className=" ove flex h-5 w-full flex-row justify-between bg-violet-500"
+            className=" flex h-5 w-full flex-row justify-between overflow-hidden bg-violet-500"
           >
             <div className="w-26">
               <p className="font-chicago text-sm">Chad Suite</p>
@@ -101,10 +102,11 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className={
-              "h-[calc(100vh-20px)] w-full overflow-hidden bg-hero-pattern bg-cover"
-            }
+            className={" h-[calc(100vh-20px)] w-full overflow-hidden "}
           >
+            <h1 className="backgroundText font-chicago text-red-500">
+              Chads Desktop Chads Desktop
+            </h1>
             <AnimatePresence>
               {rndWrappers.map((rndWrapper) => (
                 <React.Fragment key={rndWrapper.id}>

@@ -16,9 +16,13 @@ export const TestIcon: React.FC<IconProps> = ({ handleOpen }) => {
 
 export const GamesDemoIcon: React.FC<IconProps> = ({ handleOpen }) => {
   return (
-    <button onClick={() => handleOpen("https://chadsgames.com")}>
-      <div className="h-18 w-18 m-2 flex flex-col items-center justify-center">
-        <img src={require("../assets/gamesIcon.ico")} alt=":(" />
+    <button onClick={() => handleOpen("https://chadsgames.com")} className="">
+      <div className=" perspective-800 h-18 w-18 m-2 flex flex-col items-center justify-center">
+        <img
+          src={require("../assets/gamesIcon.ico")}
+          alt=":("
+          className="perspective-800 transform"
+        />
         <span className=" font-chicago text-xs text-white">Chads Games</span>
       </div>
     </button>

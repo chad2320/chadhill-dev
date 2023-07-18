@@ -1,6 +1,5 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useWindowSize } from "../../utils/useWindowSize";
 import { Vortex } from "./vortex";
 
 export const Background = () => {
@@ -8,28 +7,37 @@ export const Background = () => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
-  const { width, height } = useWindowSize();
 
-  const interval = 2.5;
-  const duration = 60;
+  const interval = 0.5;
+  const duration = 10;
   const planetRings = {
     visible: (i: number) => ({
-      y: [-10, 1500],
-      opacity: [0.4, 1, 1, 1, 1],
-      height: [2, 3],
-      shadow: [
-        "35px 35px 35px 35px rgba(255, 0, 140, 0.5)",
-        "0px 0px 0px 0px rgba(119, 0, 255, 0.5)",
-      ],
+      scale: [1, 2],
+      y: [0, 800],
+      width: [40, 500],
+      opacity: [0, 1, 1, 1, 1, 1],
+      borderBottom: ["none", "100px solid #2e1065"],
+      borderLeft: ["none", "30px solid transparent"],
+      borderRight: ["none", "30px solid transparent"],
+      perpsective: 1000,
+      rotateX: [0, 180],
+      transformOrigin: "top",
       transition: {
         ease: "linear",
         duration: duration,
         repeat: Infinity,
-        delay: i * interval - duration,
+        delay: i * (duration / beamCount),
       },
     }),
-    hidden: { opacity: 0, scale: 1 },
+    hidden: {
+      opacity: 0,
+      scale: 1,
+      borderBottom: ["none"],
+      borderLeft: ["none"],
+      borderRight: ["none"],
+    },
   };
+
   const beamCount = Math.round(duration / interval);
 
   return (
@@ -59,7 +67,23 @@ export const Background = () => {
         transition={{ duration: 2, delay: 2 }}
         className="absolute inset-0 z-0 m-0 h-full w-full"
       ></motion.div>
+
       <Vortex />
+      <motion.div className="absolute left-1/2 top-1/2">
+        <AnimatePresence>
+          {Array.from(Array(beamCount).keys()).map((i) => (
+            <motion.div
+              custom={i}
+              key={i}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={planetRings}
+              className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
+            />
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </motion.div>
   );
 };
