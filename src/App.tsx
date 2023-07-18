@@ -16,7 +16,7 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const finishLoading = () => {
     setTimeout(() => {

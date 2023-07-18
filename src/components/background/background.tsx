@@ -74,31 +74,19 @@ export const Background = () => {
     <motion.div
       className=" absolute z-[-1] m-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
       initial={{ opacity: 0, backgroundColor: "#000000" }}
-      animate={{ opacity: 1, backgroundColor: "#000000" }}
+      animate={{
+        opacity: 1,
+      }}
     >
       <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={fadeInAnimation}
-        className="absolute inset-0 z-0 m-0 h-full w-full"
-      >
-        <motion.div
-          animate={{
-            background: [
-              "linear-gradient(to top,black 30%, transparent 47%,transparent 53%, black 70%)",
-              "linear-gradient(to top,black 25%, transparent 45%,transparent 55%, black 75%)",
-              "linear-gradient(to top,black 30%, transparent 47%,transparent 53%, black 70%)",
-            ],
-            transition: {
-              duration: 10,
-              repeat: Infinity,
-              delay: 4,
-            },
-          }}
-          className="h-full w-full"
-        />
-      </motion.div>
-
+        initial={{ opacity: 0, backgroundColor: "#000000" }}
+        animate={{
+          opacity: 1,
+          background: "radial-gradient(200px circle, skyblue 0%, black 100%)",
+        }}
+        transition={{ duration: 2, delay: 2 }}
+        className="absolute h-screen w-screen"
+      />
       <Vortex />
       <motion.div className="flex items-center justify-center">
         <motion.div
