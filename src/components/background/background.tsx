@@ -1,14 +1,14 @@
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 export const Vortex = () => {
-  const duration = 21;
-  const interval = 0.3;
+  const duration = 20;
+  const interval = 0.5;
   const sunChild = {
     visible: (i: number) => ({
       scale: [1.5, 0],
       opacity: [0, 0.5, 0.7, 0.2],
-      borderRadius: ["30%", "45%"],
+      borderRadius: ["30%", "50%"],
       rotate: [0, 720],
       transition: {
         duration: duration,
@@ -34,7 +34,7 @@ export const Vortex = () => {
             key={i}
             animate="visible"
             variants={sunChild}
-            className="top-0/2 absolute z-0 h-60 w-60  border-4 border-[#2e1065]  bg-transparent"
+            className="top-0/2 absolute z-0 h-60 w-60  border-8 border-[#2e1065]  bg-transparent"
           />
         ))}
       </div>
