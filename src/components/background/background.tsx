@@ -7,42 +7,18 @@ export const Background = () => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
-  const container = {
-    perspective: "100px",
-    transform:
-      "translate3d(-50%, -50%, 0) rotate3d(1, 0, 0, 55deg) rotate3d(0, 0, 1, 45deg)",
-  };
-  const interval = 0.5;
-  const duration = 10;
-  const planetRings = {
+
+  const variant1 = {
     visible: (i: number) => ({
-      scale: [1, 2],
-      y: [0, 800],
-      width: [40, 500],
-      opacity: [0, 1, 1, 1, 1, 1],
-      borderBottom: ["none", "100px solid #2e1065"],
-      borderLeft: ["none", "30px solid transparent"],
-      borderRight: ["none", "30px solid transparent"],
-      perpsective: 1000,
-      rotateX: [0, 180],
-      transformOrigin: "top",
+      y: [0, 100],
       transition: {
-        ease: "linear",
-        duration: duration,
+        duration: 10,
         repeat: Infinity,
-        delay: i * (duration / beamCount),
+        delay: i * 2 - 10,
       },
     }),
-    hidden: {
-      opacity: 0,
-      scale: 1,
-      borderBottom: ["none"],
-      borderLeft: ["none"],
-      borderRight: ["none"],
-    },
+    hidden: {},
   };
-
-  const beamCount = Math.round(duration / interval);
 
   return (
     <motion.div
@@ -64,12 +40,9 @@ export const Background = () => {
         initial={{ opacity: 0, backgroundColor: "#000000" }}
         animate={{
           opacity: 1,
-          background: [
-            "linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)",
-          ],
         }}
         transition={{ duration: 2, delay: 2 }}
-        className="absolute inset-0 z-0 m-0 h-full w-full"
+        className="absolute inset-0 z-0 m-0 h-full w-full bg-gradient-to-t from-black from-40% via-sky-500 via-50% to-black to-60%"
       ></motion.div>
 
       <Vortex />
@@ -87,25 +60,16 @@ export const Background = () => {
           }}
           className=" z-50 h-[95px] w-[60px] border-l-[1px] border-r-[1px] border-violet-900 bg-gradient-to-t from-indigo-500 from-30%"
         >
-          <div>
-            <AnimatePresence>
-              {Array.from(Array(5).keys()).map((i) => (
-                <motion.div
-                  initial={{ y: 0 }}
-                  key={i}
-                  animate={{
-                    y: [0, 100],
-                  }}
-                  transition={{
-                    duration: 10,
-                    delay: i * 2 - 10,
-                    repeat: Infinity,
-                  }}
-                  className="absolute h-[11px] w-full border-b-[0.1px] border-t-[1px] border-violet-500 bg-transparent"
-                />
-              ))}
-            </AnimatePresence>
-          </div>
+          {Array.from(Array(5).keys()).map((i) => (
+            <motion.div
+              custom={i}
+              key={i}
+              initial="hidden"
+              animate="visible"
+              variants={variant1}
+              className="absolute h-[11px] w-full border-b-[0.1px] border-t-[1px] border-violet-500 bg-transparent"
+            />
+          ))}
         </motion.div>
       </motion.div>
     </motion.div>

@@ -2,12 +2,12 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Vortex = () => {
-  const duration = 18;
-  const interval = 0.5;
+  const duration = 21;
+  const interval = 0.3;
   const sunChild = {
     visible: (i: number) => ({
       scale: [1.5, 0],
-      opacity: [0, 0.7, 0.7, 0.2],
+      opacity: [0, 0.5, 0.7, 0.2],
       borderColor: ["#2e1065"],
       borderWidth: [4, 6],
       borderRadius: ["30%", "45%"],

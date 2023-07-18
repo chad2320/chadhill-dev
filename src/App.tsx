@@ -8,7 +8,6 @@ import { InitialLoading } from "./components/initialLoading";
 import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
 import { Background } from "./components/background/background";
-import { Background2 } from "./components/background/background copy";
 
 interface RndWrapperItem {
   id: number;
@@ -17,7 +16,7 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   //const [renderDesktop, setRenderDesktop] = useState(false);
 
   const finishLoading = () => {
