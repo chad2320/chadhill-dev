@@ -43,21 +43,6 @@ export const Vortex = () => {
 };
 
 export const Background = () => {
-  const fadeInAnimation = {
-    hidden: {},
-    visible: {
-      background: [
-        "linear-gradient(to right,black 15%, skyblue 45%,skyblue 55%, black 85%)",
-        "linear-gradient(to right,black 0%, skyblue 30%,skyblue 70%, black 100%)",
-        "linear-gradient(to right,black 15%, skyblue 45%,skyblue 55%, black 85%)",
-      ],
-      transition: {
-        duration: 10,
-        repeat: Infinity,
-        delay: 4,
-      },
-    },
-  };
   const variant1 = {
     visible: (i: number) => ({
       y: [0, 100],

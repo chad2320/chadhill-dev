@@ -8,6 +8,7 @@ import { InitialLoading } from "./components/initialLoading";
 import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
 import { Background } from "./components/background/background";
+import { Background2 } from "./components/background/background copy";
 
 interface RndWrapperItem {
   id: number;
@@ -16,7 +17,7 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const finishLoading = () => {
     setTimeout(() => {
@@ -74,8 +75,8 @@ export default function App() {
       {loading && <InitialLoading finishLoading={finishLoading} />}
       {!loading && (
         <div className="flex h-screen w-screen flex-col overflow-hidden  ">
-          <Background />
-          {/* <Background2 /> */}
+          {/* <Background /> */}
+          <Background2 />
 
           <motion.header
             initial={{ opacity: 0 }}
