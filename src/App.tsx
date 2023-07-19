@@ -17,7 +17,12 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [backgroundNumber, setBackGroundNumber] = useState(1);
+
+  const handleBackgroundChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setBackGroundNumber(Number(e.target.value));
+  };
 
   const finishLoading = () => {
     setTimeout(() => {
@@ -75,8 +80,8 @@ export default function App() {
       {loading && <InitialLoading finishLoading={finishLoading} />}
       {!loading && (
         <div className="flex h-screen w-screen flex-col overflow-hidden  ">
-          {/* <Background /> */}
-          <Background2 />
+          {backgroundNumber == 1 && <Background />}
+          {backgroundNumber == 2 && <Background2 />}
 
           <motion.header
             initial={{ opacity: 0 }}
@@ -84,9 +89,14 @@ export default function App() {
             transition={{ duration: 1, delay: 1 }}
             className=" flex h-5 w-full flex-row justify-between overflow-hidden bg-violet-500"
           >
-            <div className="w-26">
-              <p className="font-chicago text-sm">Chad Suite</p>
-            </div>
+            <select
+              value={backgroundNumber}
+              onChange={handleBackgroundChange}
+              className="m-0 h-[18px] w-[80px] bg-transparent p-0 font-chicago text-sm"
+            >
+              <option value={1}>Vortex</option>
+              <option value={2}>Horizon</option>
+            </select>
 
             <Clock />
           </motion.header>
