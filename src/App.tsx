@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
 import { Background } from "./components/background/background";
 import { Background2 } from "./components/background/background copy";
+import MusicPlayer from "./components/musicPlayer/musicPlayer";
 
 interface RndWrapperItem {
   id: number;
@@ -26,7 +27,6 @@ export default function App() {
 
   const finishLoading = () => {
     setTimeout(() => {
-      console.log("loading true");
       setLoading(false);
     }, 2000);
   };
@@ -82,6 +82,9 @@ export default function App() {
         <div className="flex h-screen w-screen flex-col overflow-hidden  ">
           {backgroundNumber == 1 && <Background />}
           {backgroundNumber == 2 && <Background2 />}
+          {backgroundNumber == 3 && (
+            <div className="absolute z-[-1] h-screen w-screen bg-black" />
+          )}
 
           <motion.header
             initial={{ opacity: 0 }}
@@ -96,6 +99,7 @@ export default function App() {
             >
               <option value={1}>Vortex</option>
               <option value={2}>Horizon</option>
+              <option value={3}>Blank</option>
             </select>
 
             <Clock />
@@ -118,6 +122,7 @@ export default function App() {
             </AnimatePresence>
             <GamesDemoIcon handleOpen={handleAddRndWrapper} />
             <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
+            {/* <MusicPlayer /> */}
           </motion.main>
         </div>
       )}
