@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import graveEncounters from "../../assets/darksynth/grave-encounters.mp3";
 import theDeadZone from "../../assets/darksynth/the-dead-zone.mp3";
 import wrathChild from "../../assets/darksynth/wrath-child.mp3";
 import { useGlobalAudioPlayer } from "react-use-audio-player";
+import { Rnd } from "react-rnd";
 
 interface Song {
   id: number;
@@ -30,8 +31,17 @@ const songs: Song[] = [
 ];
 
 function MusicPlayer() {
-  const { load, play, pause, paused } = useGlobalAudioPlayer();
-  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
+  const { load, togglePlayPause, paused, duration, getPosition, seek } =
+    useGlobalAudioPlayer();
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(1);
+  const [pos, setPos] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPos(getPosition());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     load(songs[currentSongIndex].url, {
@@ -43,12 +53,10 @@ function MusicPlayer() {
     });
   }, [currentSongIndex, load]);
 
-  const playSong = () => {
-    play();
-  };
-
-  const pauseSong = () => {
-    pause();
+  const scrub = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const percent = Number(e.target.value) / duration;
+    seek(percent * duration);
+    setPos(Number(e.target.value));
   };
 
   const goToNextSong = () => {
@@ -61,43 +69,70 @@ function MusicPlayer() {
     );
   };
 
+  const formatTime = (time: number): string => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center p-4">
-      <h1 className="mb-4 text-2xl font-bold">Music Player</h1>
-      <div className="mb-4">
-        <span className=" mr-2 text-white">Now Playing:</span>
-        <span className="text-white">{songs[currentSongIndex]?.title}</span>
-      </div>
-      <div className="mb-4 flex items-center justify-center">
-        <button
-          className="mr-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-          onClick={goToPreviousSong}
-        >
-          Previous
-        </button>
-        {!paused ? (
+    <Rnd
+      default={{ x: 0, y: 100, width: 180, height: 180 }}
+      enableResizing={false}
+      bounds="parent"
+      dragHandleClassName="handle"
+    >
+      <div className="flex h-[180px] w-[180px] flex-col  border-[1px] border-violet-500 bg-violet-400">
+        <div className="handle h-[6px] w-full bg-violet-500" />
+        <h1 className="mb-4 pl-1 font-chicago text-sm text-white">
+          {songs[currentSongIndex]?.title}
+        </h1>
+        <div className="mb-3 flex h-[8px] w-full justify-between font-chicago text-xs text-white">
+          <p className="">{formatTime(pos)}</p>
+          <p>{formatTime(duration)}</p>
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={duration}
+          step={1}
+          value={pos}
+          onChange={scrub}
+        />
+
+        <div className="mb-4 mt-4 flex items-center justify-center">
           <button
-            className="mr-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-            onClick={pauseSong}
+            className="mr-2 rounded bg-blue-500 px-1 text-sm text-white hover:bg-blue-600"
+            onClick={goToPreviousSong}
           >
-            Pause
+            Previous
           </button>
-        ) : (
+          {!paused ? (
+            <button
+              className="mr-2 rounded bg-red-500 px-1 text-sm text-white hover:bg-red-600"
+              onClick={() => togglePlayPause()}
+            >
+              Pause
+            </button>
+          ) : (
+            <button
+              className="mr-2 rounded bg-blue-500 px-1 text-sm text-white hover:bg-blue-600"
+              onClick={() => togglePlayPause()}
+            >
+              Play
+            </button>
+          )}
           <button
-            className="mr-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-            onClick={playSong}
+            className="rounded bg-blue-500 px-1 text-sm text-white hover:bg-blue-600"
+            onClick={goToNextSong}
           >
-            Play
+            Next
           </button>
-        )}
-        <button
-          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-          onClick={goToNextSong}
-        >
-          Next
-        </button>
+        </div>
       </div>
-    </div>
+    </Rnd>
   );
 }
 
