@@ -44,14 +44,14 @@ interface MusicPlayerProps {
 }
 
 export const MusicPlayer: React.FC<MusicPlayerProps> = ({ closePlayer }) => {
-  const { load, togglePlayPause, paused, duration, getPosition } =
+  const { load, togglePlayPause, pause, paused, duration, getPosition } =
     useGlobalAudioPlayer();
   const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
   const [pos, setPos] = useState(0);
 
   function closePlayerAndPauseMusic() {
     closePlayer();
-    togglePlayPause();
+    pause();
   }
 
   useEffect(() => {
@@ -64,6 +64,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ closePlayer }) => {
   useEffect(() => {
     load(songs[currentSongIndex].url, {
       autoplay: true,
+      html5: true,
       format: "mp3",
       onend: () => {
         setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -96,8 +97,8 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ closePlayer }) => {
       bounds="parent"
       dragHandleClassName="handle"
     >
-      <div className="flex h-[200px] w-[280px] flex-col  border-[1px] border-violet-500 bg-violet-400">
-        <div className="handle flex h-[20px] w-full flex-row bg-violet-500">
+      <div className="flex h-[198px] w-[278px] flex-col  border-[1px] border-violet-500 bg-violet-400">
+        <div className="handle flex h-[20px] w-full cursor-grab flex-row bg-violet-500">
           <button
             onPointerDownCapture={closePlayerAndPauseMusic}
             className=" ml-[1px] mt-[1px] h-[16px] w-[16px] border-[1px] border-black p-0 font-chicago text-xs text-black"

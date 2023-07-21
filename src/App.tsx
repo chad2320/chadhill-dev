@@ -21,13 +21,15 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
-  const { togglePlayPause } = useGlobalAudioPlayer();
+  const { playing, pause } = useGlobalAudioPlayer();
   const [loading, setLoading] = useState(true);
   const [backgroundNumber, setBackGroundNumber] = useState(1);
   const [musicPlayerOpen, setMusicPlayerOpen] = useState(true);
 
   const managePlayer = () => {
-    togglePlayPause();
+    if (playing) {
+      pause();
+    }
     setMusicPlayerOpen(!musicPlayerOpen);
   };
 
@@ -105,7 +107,7 @@ export default function App() {
             <select
               value={backgroundNumber}
               onChange={handleBackgroundChange}
-              className="m-0 h-[18px] w-[80px] bg-transparent p-0 font-chicago text-sm"
+              className="m-0 h-[18px] w-[80px] cursor-pointer bg-transparent p-0 font-chicago text-sm"
             >
               <option value={1}>Vortex</option>
               <option value={2}>Horizon</option>

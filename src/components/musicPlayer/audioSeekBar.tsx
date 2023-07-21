@@ -87,13 +87,13 @@ export const AudioSeekBar: FunctionComponent<AudioSeekBarProps> = () => {
     >
       <div
         style={{ width: `${(pos / duration) * 100}%` }}
-        className="absolute h-[40px]"
+        className="absolute h-[40px] cursor-pointer"
       />
-      <div className="flex h-full w-full flex-row items-center justify-between">
+      <div className="flex h-full w-full cursor-pointer flex-row items-center justify-between">
         {rectangleHeights.map((height, index) => (
           <motion.div
             key={index}
-            className={`mx-px h-full w-[3px] ${
+            className={`mx-px  w-[3px]  ${
               index < (pos / duration) * 50 ? "bg-violet-500" : "bg-violet-300"
             }`}
             animate={
