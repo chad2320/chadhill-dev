@@ -4,11 +4,17 @@ import theDeadZone from "../../assets/darksynth/the-dead-zone.mp3";
 import wrathChild from "../../assets/darksynth/wrath-child.mp3";
 import { useGlobalAudioPlayer } from "react-use-audio-player";
 import { Rnd } from "react-rnd";
+import { AudioSeekBar } from "./audioSeekBar";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 
 interface Song {
   id: number;
   title: string;
   url: string;
+  artist: string;
 }
 
 const songs: Song[] = [
@@ -16,25 +22,37 @@ const songs: Song[] = [
     id: 1,
     title: "The Dead Zone",
     url: theDeadZone,
+    artist: "Karl Casey",
   },
   {
     id: 2,
     title: "Grave Encounters",
     url: graveEncounters,
+    artist: "Karl Casey",
   },
   {
     id: 3,
     title: "Wrath Child",
     url: wrathChild,
+    artist: "Karl Casey",
   },
   // Add more songs here
 ];
 
-function MusicPlayer() {
-  const { load, togglePlayPause, paused, duration, getPosition, seek } =
+interface MusicPlayerProps {
+  closePlayer: () => void;
+}
+
+export const MusicPlayer: React.FC<MusicPlayerProps> = ({ closePlayer }) => {
+  const { load, togglePlayPause, paused, duration, getPosition } =
     useGlobalAudioPlayer();
-  const [currentSongIndex, setCurrentSongIndex] = useState<number>(1);
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
   const [pos, setPos] = useState(0);
+
+  function closePlayerAndPauseMusic() {
+    closePlayer();
+    togglePlayPause();
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,12 +70,6 @@ function MusicPlayer() {
       },
     });
   }, [currentSongIndex, load]);
-
-  const scrub = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const percent = Number(e.target.value) / duration;
-    seek(percent * duration);
-    setPos(Number(e.target.value));
-  };
 
   const goToNextSong = () => {
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -79,61 +91,71 @@ function MusicPlayer() {
 
   return (
     <Rnd
-      default={{ x: 0, y: 100, width: 180, height: 180 }}
+      default={{ x: 0, y: 100, width: 280, height: 200 }}
       enableResizing={false}
       bounds="parent"
       dragHandleClassName="handle"
     >
-      <div className="flex h-[180px] w-[180px] flex-col  border-[1px] border-violet-500 bg-violet-400">
-        <div className="handle h-[6px] w-full bg-violet-500" />
-        <h1 className="mb-4 pl-1 font-chicago text-sm text-white">
+      <div className="flex h-[200px] w-[280px] flex-col  border-[1px] border-violet-500 bg-violet-400">
+        <div className="handle flex h-[20px] w-full flex-row bg-violet-500">
+          <button
+            onPointerDownCapture={closePlayerAndPauseMusic}
+            className=" ml-[1px] mt-[1px] h-[16px] w-[16px] border-[1px] border-black p-0 font-chicago text-xs text-black"
+          >
+            X
+          </button>
+          <div className="  flex w-[200px] flex-col justify-between pl-2 pr-2">
+            <div className="mt-[4px] h-[2px] w-full bg-black" />
+            <div className="h-[1px] w-full bg-black" />
+            <div className="mb-[5px] h-[3px] w-full bg-black" />
+          </div>
+          <h1 className="w-[80px] font-chicago text-sm text-black">Chad FM</h1>
+        </div>
+        <div className="mt-1 flex h-[40px] w-full items-center justify-center">
+          <AudioSeekBar />
+        </div>
+        <div className="ml-4 mt-3 flex h-[8px] w-full justify-between font-chicago text-xs text-white">
+          <p>
+            {formatTime(pos)}/{formatTime(duration)}
+          </p>
+        </div>
+        <h1 className="ml-4 mt-2 font-chicago text-sm text-white">
           {songs[currentSongIndex]?.title}
         </h1>
-        <div className="mb-3 flex h-[8px] w-full justify-between font-chicago text-xs text-white">
-          <p className="">{formatTime(pos)}</p>
-          <p>{formatTime(duration)}</p>
-        </div>
-        <input
-          type="range"
-          min={0}
-          max={duration}
-          step={1}
-          value={pos}
-          onChange={scrub}
-        />
-
-        <div className="mb-4 mt-4 flex items-center justify-center">
+        <h2 className="ml-4 mt-1 font-chicago text-xs text-white">
+          {songs[currentSongIndex]?.artist}
+        </h2>
+        <div className="m-2 h-[1px] w-[260px] rounded-sm  bg-black" />
+        <div className="mb-2 mt-2 inline-flex w-full justify-center">
           <button
-            className="mr-2 rounded bg-blue-500 px-1 text-sm text-white hover:bg-blue-600"
+            className="rounded-l border-[1px] border-black bg-transparent px-1 text-sm text-white hover:bg-violet-500"
             onClick={goToPreviousSong}
           >
-            Previous
+            <SkipPreviousIcon />
           </button>
           {!paused ? (
             <button
-              className="mr-2 rounded bg-red-500 px-1 text-sm text-white hover:bg-red-600"
+              className=" border-[1px] border-black bg-transparent px-1 text-sm text-white hover:bg-violet-500"
               onClick={() => togglePlayPause()}
             >
-              Pause
+              <PauseIcon />
             </button>
           ) : (
             <button
-              className="mr-2 rounded bg-blue-500 px-1 text-sm text-white hover:bg-blue-600"
+              className=" border-[1px] border-black bg-transparent px-1 text-sm text-white hover:bg-violet-500"
               onClick={() => togglePlayPause()}
             >
-              Play
+              <PlayArrowIcon />
             </button>
           )}
           <button
-            className="rounded bg-blue-500 px-1 text-sm text-white hover:bg-blue-600"
+            className="rounded-r border-[1px] border-black bg-transparent px-1 text-sm text-white hover:bg-violet-500"
             onClick={goToNextSong}
           >
-            Next
+            <SkipNextIcon />
           </button>
         </div>
       </div>
     </Rnd>
   );
-}
-
-export default MusicPlayer;
+};

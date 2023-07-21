@@ -9,7 +9,10 @@ import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
 import { Background } from "./components/background/background";
 import { Background2 } from "./components/background/background copy";
-import MusicPlayer from "./components/musicPlayer/musicPlayer";
+import { MusicPlayer } from "./components/musicPlayer/musicPlayer";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import VolumeOffIcon from "@mui/icons-material/VolumeOff";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
 
 interface RndWrapperItem {
   id: number;
@@ -18,8 +21,15 @@ interface RndWrapperItem {
 
 inject();
 export default function App() {
+  const { togglePlayPause } = useGlobalAudioPlayer();
   const [loading, setLoading] = useState(true);
   const [backgroundNumber, setBackGroundNumber] = useState(1);
+  const [musicPlayerOpen, setMusicPlayerOpen] = useState(true);
+
+  const managePlayer = () => {
+    togglePlayPause();
+    setMusicPlayerOpen(!musicPlayerOpen);
+  };
 
   const handleBackgroundChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBackGroundNumber(Number(e.target.value));
@@ -101,8 +111,29 @@ export default function App() {
               <option value={2}>Horizon</option>
               <option value={3}>Blank</option>
             </select>
-
-            <Clock />
+            <div className="flex flex-row">
+              <div>
+                <div className="flex flex-row">
+                  <div className=" m-0 mr-[2px] border-l-[1px] border-black pl-1 font-chicago text-sm ">
+                    <button
+                      onClick={managePlayer}
+                      className=" flex items-center justify-center p-0 font-chicago text-xs text-black"
+                    >
+                      {musicPlayerOpen ? (
+                        <VolumeUpIcon
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      ) : (
+                        <VolumeOffIcon
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <Clock />
+            </div>
           </motion.header>
           <motion.main
             initial={{ opacity: 0 }}
@@ -110,7 +141,9 @@ export default function App() {
             transition={{ duration: 1, delay: 1 }}
             className={" h-[calc(100vh-20px)] w-full overflow-hidden "}
           >
-            <MusicPlayer />
+            {musicPlayerOpen && (
+              <MusicPlayer closePlayer={() => setMusicPlayerOpen(false)} />
+            )}
 
             <AnimatePresence>
               {rndWrappers.map((rndWrapper) => (
