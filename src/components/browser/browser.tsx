@@ -5,8 +5,9 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FitScreenIcon from "@mui/icons-material/FitScreen";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
-import { useWindowSize } from "../utils/useWindowSize";
-import { HeroAnimation } from "./heroAnimation";
+import { useWindowSize } from "../../utils/useWindowSize";
+import { Spinner } from "../loading/spinner";
+import { DefaultPage } from "./defaultPage";
 
 interface RndWrapperProps {
   handleClose: () => void;
@@ -17,20 +18,19 @@ interface RndWrapperProps {
 export const RndWrapper: React.FC<RndWrapperProps> = ({
   handleClose,
   handleMoveToEnd,
-  link,
 }) => {
   //State for controlling the url input
-  const [url, setUrl] = useState(link);
-  const [urlInput, setUrlInput] = useState(link);
-  const [history, setHistory] = useState<string[]>([link]);
+  const [url, setUrl] = useState("Home Page");
+  const [urlInput, setUrlInput] = useState("Home Page");
+  const [history, setHistory] = useState<string[]>(["Home Page"]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [navigating, setNavigating] = useState(false);
+  const [navigating, setNavigating] = useState(true);
 
   useEffect(() => {
     if (navigating) {
       const timer = setTimeout(() => {
         setNavigating(false);
-      }, 1500);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
@@ -40,34 +40,37 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
     setUrlInput(event.target.value);
   };
 
-  const navigateToUrl = (newUrl: string) => {
+  const navigateToUrl = (newUrl: string, incrementIndex: boolean) => {
     setNavigating(true);
-    if (!newUrl.startsWith("https://")) {
+    if (!newUrl.startsWith("https://") && newUrl !== "Home Page") {
       newUrl = `https://${newUrl}`;
     }
     setUrl(newUrl);
     setUrlInput(newUrl);
-    setHistory((prevHistory) => [...prevHistory, url]);
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    if (incrementIndex) {
+      const temp = [...history.slice(0, currentIndex + 1), newUrl];
+      setHistory(temp);
+      setCurrentIndex(temp.length - 1);
+    }
   };
 
   const handleForward = () => {
     if (currentIndex < history.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
-      navigateToUrl(history[currentIndex + 1]);
+      navigateToUrl(history[currentIndex + 1], false);
     }
   };
 
   const handleBackward = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
-      navigateToUrl(history[currentIndex - 1]);
+      navigateToUrl(history[currentIndex - 1], false);
     }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      navigateToUrl(urlInput);
+      navigateToUrl(urlInput, true);
     }
   };
 
@@ -136,10 +139,10 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0, y: 50 }}
-        whileHover={
+        /* whileHover={
           windowSize.width >= 820 ? (maxed ? { scale: 1.005 } : {}) : {}
-        }
-        className="h-full flex-col items-center justify-center rounded-sm border-2 border-violet-500 bg-white"
+        } */
+        className="h-full flex-col items-center justify-center overflow-hidden rounded-sm border-2 border-violet-500 bg-black"
         onClick={handleContainerMouseDown}
       >
         <div className=" handle flex h-12 flex-col justify-around  bg-[#4B47DE]">
@@ -181,11 +184,11 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             <motion.button
               whileHover={{ scale: 1.05 }}
               className=" ml-1 flex h-4 flex-row items-center rounded-lg pr-1 font-chicago text-white hover:bg-white hover:bg-opacity-20 "
-              onClick={() => navigateToUrl("https://chadsgames.com")}
+              onClick={() => navigateToUrl("https://chadsgames.com", true)}
             >
               <img
                 className="m-0 mr-1 h-[4] w-4 rounded-lg p-0"
-                src={require("../assets/gamesIcon.ico")}
+                src={require("../../assets/icons/gamesIcon.ico")}
                 alt={":)"}
               />
               Games
@@ -193,11 +196,11 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             <motion.button
               whileHover={{ scale: 1.05 }}
               className=" ml-1 flex h-4 flex-row  items-center rounded-lg pr-1 font-chicago text-white hover:bg-white  hover:bg-opacity-20"
-              onClick={() => navigateToUrl("https://chadsmovies.com")}
+              onClick={() => navigateToUrl("https://chadsmovies.com", true)}
             >
               <img
                 className="m-0 mr-1 h-[4] w-4 rounded-lg p-0"
-                src={require("../assets/moviesIcon.ico")}
+                src={require("../../assets/icons/moviesIcon.ico")}
                 alt={":)"}
               />
               Movies
@@ -206,15 +209,18 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
         </div>
         {navigating && (
           <motion.div className="flex h-full w-full flex-col items-center justify-center">
-            <HeroAnimation size={size} />
+            <Spinner />
           </motion.div>
         )}
         <motion.div className="flex h-full w-full flex-col">
-          <iframe
-            className=" h-full pb-12"
-            src={url}
-            style={{ visibility: navigating ? "hidden" : "visible" }}
-          />
+          {!navigating && url === "Home Page" && <DefaultPage />}
+          {url !== "Home Page" && (
+            <iframe
+              className=" h-full pb-12"
+              src={url}
+              style={{ visibility: navigating ? "hidden" : "visible" }}
+            />
+          )}
         </motion.div>
       </motion.div>
     </Rnd>

@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
-import { RndWrapper } from "./components/rndWrapper";
-import { GamesDemoIcon, MoviesDemoIcon } from "./components/icons";
+import { RndWrapper } from "./components/browser/browser";
+import { BrowserIcon } from "./components/icons";
 import { AnimatePresence } from "framer-motion";
 import { Clock } from "./components/clock";
-import { InitialLoading } from "./components/initialLoading";
+import { InitialLoading } from "./components/loading/initialLoading";
 import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
 import { Background } from "./components/background/background";
@@ -22,9 +22,9 @@ interface RndWrapperItem {
 inject();
 export default function App() {
   const { playing, pause } = useGlobalAudioPlayer();
-  const [loading, setLoading] = useState(false);
-  const [backgroundNumber, setBackGroundNumber] = useState(3);
-  const [musicPlayerOpen, setMusicPlayerOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [backgroundNumber, setBackGroundNumber] = useState(1);
+  const [musicPlayerOpen, setMusicPlayerOpen] = useState(true);
 
   const managePlayer = () => {
     if (playing) {
@@ -154,8 +154,7 @@ export default function App() {
                 </React.Fragment>
               ))}
             </AnimatePresence>
-            <GamesDemoIcon handleOpen={handleAddRndWrapper} />
-            <MoviesDemoIcon handleOpen={handleAddRndWrapper} />
+            <BrowserIcon handleOpen={handleAddRndWrapper} />
           </motion.main>
         </div>
       )}

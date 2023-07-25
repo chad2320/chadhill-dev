@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import click1 from "../assets/audio/click1.mp3";
-import click2 from "../assets/audio/click2.mp3";
-import click3 from "../assets/audio/click3.mp3";
-import click4 from "../assets/audio/click4.mp3";
+import click1 from "../../assets/audio/click1.mp3";
+import click2 from "../../assets/audio/click2.mp3";
+import click3 from "../../assets/audio/click3.mp3";
+import click4 from "../../assets/audio/click4.mp3";
 
 import {
   chad,
@@ -16,7 +16,7 @@ import {
   keyboard6,
   keyboard7,
   keyboard8,
-} from "../assets/ascii";
+} from "../../assets/ascii";
 
 interface TypewriterProps {
   text: string;
