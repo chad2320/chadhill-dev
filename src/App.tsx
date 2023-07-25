@@ -22,9 +22,9 @@ interface RndWrapperItem {
 inject();
 export default function App() {
   const { playing, pause } = useGlobalAudioPlayer();
-  const [loading, setLoading] = useState(true);
-  const [backgroundNumber, setBackGroundNumber] = useState(1);
-  const [musicPlayerOpen, setMusicPlayerOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [backgroundNumber, setBackGroundNumber] = useState(3);
+  const [musicPlayerOpen, setMusicPlayerOpen] = useState(false);
 
   const managePlayer = () => {
     if (playing) {
@@ -91,11 +91,11 @@ export default function App() {
     <div className=" h-screen w-screen overflow-hidden">
       {loading && <InitialLoading finishLoading={finishLoading} />}
       {!loading && (
-        <div className="flex h-screen w-screen flex-col overflow-hidden  ">
+        <div className="flex h-full w-full flex-col overflow-hidden  ">
           {backgroundNumber == 1 && <Background />}
           {backgroundNumber == 2 && <Background2 />}
           {backgroundNumber == 3 && (
-            <div className="absolute z-[-1] h-screen w-screen bg-black" />
+            <div className="absolute z-[-1] h-full w-full bg-black" />
           )}
 
           <motion.header

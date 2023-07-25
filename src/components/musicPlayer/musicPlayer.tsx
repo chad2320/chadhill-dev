@@ -92,7 +92,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ closePlayer }) => {
 
   return (
     <Rnd
-      default={{ x: 0, y: 100, width: 280, height: 200 }}
+      default={{ x: 0, y: 100, width: 278, height: 198 }}
       enableResizing={false}
       bounds="parent"
       dragHandleClassName="handle"
@@ -105,10 +105,10 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ closePlayer }) => {
           >
             X
           </button>
-          <div className="  flex w-[200px] flex-col justify-between pl-2 pr-2">
-            <div className="mt-[4px] h-[2px] w-full bg-black" />
-            <div className="h-[1px] w-full bg-black" />
-            <div className="mb-[5px] h-[3px] w-full bg-black" />
+          <div className=" handle flex w-[200px] flex-col justify-between pl-2 pr-2">
+            <div className="handle mt-[4px] h-[2px] w-full bg-black" />
+            <div className="handle h-[1px] w-full bg-black" />
+            <div className="handle mb-[5px] h-[3px] w-full bg-black" />
           </div>
           <h1 className="w-[80px] font-chicago text-sm text-black">Chad FM</h1>
         </div>
