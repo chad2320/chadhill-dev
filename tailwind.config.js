@@ -7,6 +7,7 @@ module.exports = {
       backgroundImage: {
         "hero-pattern": "url('/src/assets/wallpaper.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "circuit-pattern": "url('/src/assets/images/circuitBoard.svg')",
       },
       fontFamily: {
         chicago: ["Chicago"],

@@ -180,14 +180,17 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
               </button>
             </div>
           </div>
-          <div className="flex flex-row pb-1 pt-1 text-sm">
+          <div className="no-scrollbar flex flex-row items-center overflow-x-auto overflow-y-hidden text-sm">
+            <p className="mx-[4px] whitespace-nowrap font-chicago text-sm text-white">
+              Quick Links:
+            </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className=" ml-1 flex h-4 flex-row items-center rounded-lg pr-1 font-chicago text-white hover:bg-white hover:bg-opacity-20 "
+              className=" ml-1 flex h-4 w-20 flex-row items-center justify-center rounded-lg pr-1 font-chicago text-white hover:bg-white hover:bg-opacity-20 "
               onClick={() => navigateToUrl("https://chadsgames.com", true)}
             >
               <img
-                className="m-0 mr-1 h-[4] w-4 rounded-lg p-0"
+                className="m-0 mr-1  h-[4] w-4 rounded-lg p-0"
                 src={require("../../assets/icons/gamesIcon.ico")}
                 alt={":)"}
               />
@@ -195,7 +198,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className=" ml-1 flex h-4 flex-row  items-center rounded-lg pr-1 font-chicago text-white hover:bg-white  hover:bg-opacity-20"
+              className=" ml-1 flex h-4 w-20 flex-row  items-center justify-center rounded-lg pr-1 font-chicago text-white hover:bg-white  hover:bg-opacity-20"
               onClick={() => navigateToUrl("https://chadsmovies.com", true)}
             >
               <img
