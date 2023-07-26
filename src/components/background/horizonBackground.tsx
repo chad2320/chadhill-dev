@@ -82,13 +82,14 @@ export const Background2 = () => {
         animate={{
           opacity: [0, 1],
           rotateX: 45,
+          y: 150,
           transformPerspective: 200,
         }}
         transition={{
           delay: 2,
           duration: 1,
         }}
-        className=" z-50  mt-[25vh] h-[500px] w-[250vw] justify-center overflow-hidden border-l-[1px] border-r-[1px] border-violet-900 bg-gradient-to-t from-indigo-700 from-90%"
+        className=" absolute z-50   h-[500px] w-[250vw] justify-center overflow-hidden border-l-[1px] border-r-[1px] border-violet-900 bg-gradient-to-t from-indigo-700 from-90%"
       >
         {Array.from(Array(15).keys()).map((i) => (
           <motion.div

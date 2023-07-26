@@ -7,8 +7,8 @@ import { Clock } from "./components/clock";
 import { InitialLoading } from "./components/loading/initialLoading";
 import { motion } from "framer-motion";
 import { inject } from "@vercel/analytics";
-import { Background } from "./components/background/background";
-import { Background2 } from "./components/background/background copy";
+import { Background } from "./components/background/vortexBackground";
+import { Background2 } from "./components/background/horizonBackground";
 import { MusicPlayer } from "./components/musicPlayer/musicPlayer";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
@@ -22,9 +22,9 @@ interface RndWrapperItem {
 inject();
 export default function App() {
   const { playing, pause } = useGlobalAudioPlayer();
-  const [loading, setLoading] = useState(true);
-  const [backgroundNumber, setBackGroundNumber] = useState(1);
-  const [musicPlayerOpen, setMusicPlayerOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [backgroundNumber, setBackGroundNumber] = useState(2);
+  const [musicPlayerOpen, setMusicPlayerOpen] = useState(false);
 
   const managePlayer = () => {
     if (playing) {
