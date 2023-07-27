@@ -23,13 +23,19 @@ export const getRepositoryInfo = async (
       "{/sha}",
       ""
     );
+
+    //Fetch info from links
     const commitsResponse = await githubAxios.get(commitsUrl);
+    const contributorsResponse = await githubAxios.get(
+      repositoryResponse.data.contributors_url
+    );
     const languagesResponse = await githubAxios.get(
       repositoryResponse.data.languages_url
     );
-    const commits = commitsResponse.data;
 
-    const numberOfCommits = Array.isArray(commits) ? commits.length : 0;
+    //Extract info from links responses
+    const commits = commitsResponse.data;
+    const numberOfCommits = contributorsResponse.data[0].contributions;
     const lastCommitDate =
       Array.isArray(commits) && commits.length > 0
         ? commits[0].commit.author.date

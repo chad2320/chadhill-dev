@@ -10,6 +10,7 @@ export const DefaultPage: React.FC = () => {
   const [width, setWidth] = useState(1080);
   const [repositoryInfo1, setRepositoryInfo1] = useState<any | null>(null);
   const [repositoryInfo2, setRepositoryInfo2] = useState<any | null>(null);
+
   useEffect(() => {
     //Grab github repo info
     const fetchData = async (
@@ -25,6 +26,7 @@ export const DefaultPage: React.FC = () => {
     fetchData("chad2320", "Chads-Data-Tabler", 1);
     fetchData("chad2320", "chadhill-dev", 2);
   }, []);
+
   useEffect(() => {
     //Get main divs width to properly set flex direction
     const handleResize = () => {
@@ -48,6 +50,7 @@ export const DefaultPage: React.FC = () => {
       observer.disconnect();
     };
   });
+
   if (!repositoryInfo1 || !repositoryInfo2)
     return (
       <div className="flex h-full w-full items-center justify-center">
@@ -56,6 +59,7 @@ export const DefaultPage: React.FC = () => {
         </h1>
       </div>
     );
+
   return (
     <div
       ref={ref}
@@ -142,7 +146,7 @@ export const DefaultPage: React.FC = () => {
             </div>
             <div
               className={`flex w-full ${
-                width > 800 ? "flex-row" : "flex-col"
+                width > 950 ? "flex-row" : "flex-col"
               } justify-start font-chicago text-lg text-white`}
             >
               <LanguagesVisual languages={repositoryInfo1?.languages} />
@@ -212,7 +216,7 @@ export const DefaultPage: React.FC = () => {
             </div>
             <div
               className={`flex w-full ${
-                width > 800 ? "flex-row" : "flex-col"
+                width > 950 ? "flex-row" : "flex-col"
               } justify-around font-chicago text-lg text-white`}
             >
               <LanguagesVisual languages={repositoryInfo2?.languages} />
@@ -273,7 +277,7 @@ export const LanguagesVisual: React.FC<LanguagesVisualProps> = ({
   }
 
   return (
-    <div className="m-2">
+    <div className="m-2 w-[300px]">
       <h1>Languages</h1>
       <div className="flex h-2 w-full flex-row overflow-hidden rounded-md">
         {Object.entries(languages).map(([language, value]) => (
