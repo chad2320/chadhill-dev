@@ -22,9 +22,9 @@ interface RndWrapperItem {
 inject();
 export default function App() {
   const { playing, pause } = useGlobalAudioPlayer();
-  const [loading, setLoading] = useState(false);
-  const [backgroundNumber, setBackGroundNumber] = useState(3);
-  const [musicPlayerOpen, setMusicPlayerOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [backgroundNumber, setBackGroundNumber] = useState(1);
+  const [musicPlayerOpen, setMusicPlayerOpen] = useState(true);
 
   const managePlayer = () => {
     if (playing) {
