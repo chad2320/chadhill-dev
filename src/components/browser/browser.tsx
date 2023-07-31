@@ -43,7 +43,9 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
   const navigateToUrl = (newUrl: string, incrementIndex: boolean) => {
     setNavigating(true);
     if (!newUrl.startsWith("https://") && newUrl !== "Home Page") {
-      newUrl = `https://${newUrl}`;
+      newUrl.includes("http://")
+        ? newUrl.replace("http://", "https://")
+        : (newUrl = `https://${newUrl}`);
     }
     setUrl(newUrl);
     setUrlInput(newUrl);

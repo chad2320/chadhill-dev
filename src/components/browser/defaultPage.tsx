@@ -51,6 +51,17 @@ export const DefaultPage: React.FC = () => {
     };
   });
 
+  const handleDownload = () => {
+    const documentUrl = "/chadHillResume.pdf";
+    const link = document.createElement("a");
+    link.href = documentUrl;
+
+    link.download = "chadHillResume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (!repositoryInfo1 || !repositoryInfo2)
     return (
       <div className="flex h-full w-full items-center justify-center">
@@ -82,25 +93,66 @@ export const DefaultPage: React.FC = () => {
             width > 800 ? "w-[50%]" : "w-[95%]"
           } m-2 flex h-full  flex-col items-center rounded-md bg-gradient-to-b  from-[#293d5b] to-[#1f2d41] px-2`}
         >
-          <h1 className=" m-2 font-chicago text-2xl text-white">
+          <h1
+            className={` m-2 font-chicago ${
+              width < 800 ? "text-lg" : "text-2xl"
+            } text-white`}
+          >
             {/* eslint-disable-next-line */}
             Welcome to my website! I'm Chad, a full stack developer from the
             Greater Seattle Area.
           </h1>
           <div className=" h-[1px] w-[80%] bg-black" />
-          <p className=" m-2 font-chicago text-lg text-white">
+          <p
+            className={` m-2 font-chicago ${
+              width < 800 ? "text-sm" : "text-lg"
+            } text-white`}
+          >
             {/* eslint-disable-next-line */}
             This desktop site is just my creative way of showing off my skills
             and projects. Which you can checkout below or look at the demos in
             the quick links above!
           </p>
+          <p
+            className={` m-2 font-chicago ${
+              width < 800 ? "text-sm" : "text-lg"
+            } text-white`}
+          >
+            {/* eslint-disable-next-line */}
+            This browser works just like any other, except it uses an iframe so
+            many sites wont be accesible. Try typing out bing.com in the url bar
+            and see what happens!
+          </p>
+          <p
+            className={` m-2 font-chicago ${
+              width < 800 ? "text-sm" : "text-lg"
+            } text-white`}
+          >
+            {/* eslint-disable-next-line */}
+            Currently digging into Next.js.
+          </p>
           <p>{/* eslint-disable-next-line */}</p>
-          <div className="flex h-full w-full flex-row items-end justify-end pb-2">
-            <div className=" rounded-lg border-2 border-slate-700 bg-purple-800 p-[3px]">
-              <p className="font-chicago text-white">
+          <div
+            className={`flex h-full w-full ${
+              width > 845 ? "flex-row" : "flex-col"
+            } items-end justify-between pb-2`}
+          >
+            <div className="flex h-8 items-center rounded-lg border-2 border-slate-700 bg-purple-800 p-[3px]">
+              <p
+                className={`font-chicago ${
+                  width < 800 ? "text-xs" : "text-sm"
+                } text-white`}
+              >
                 Status:&nbsp;
                 <span className="text-green-500">Looking for dev work</span>
               </p>
+            </div>
+            <div
+              className={`flex h-8 items-center rounded-lg bg-purple-800 p-[3px] font-chicago text-sm text-white hover:cursor-pointer`}
+              onPointerDownCapture={handleDownload}
+            >
+              {" "}
+              Click for resume
             </div>
           </div>
         </div>
@@ -202,7 +254,7 @@ export const DefaultPage: React.FC = () => {
               <button
                 className="rounded-sm p-[1px] text-white hover:bg-slate-500 "
                 onClick={() =>
-                  window.open("https://github.com/chad2320/Chads-Data-Tabler")
+                  window.open("https://github.com/chad2320/chadhill-dev")
                 }
               >
                 <LaunchIcon />
@@ -234,8 +286,10 @@ export const DefaultPage: React.FC = () => {
                 <div className=" m-2 w-48">
                   <h1>Libraries:</h1>
                   <ul className="text-sm">
+                    <li>Tailwind</li>
                     <li>Framer Motion</li>
-                    <li>RND Wrapper</li>
+                    <li>Howler</li>
+                    <li>RND React</li>
                   </ul>
                 </div>
                 <div className=" m-2 w-48">
