@@ -1,2 +1,2 @@
 # Chads Desktop 
-Check it here chadhill.dev
+Check it [here](https://chadhill.dev)
