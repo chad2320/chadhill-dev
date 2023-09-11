@@ -99,8 +99,8 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            Welcome to my website! I'm Chad, a full stack developer from the
-            Greater Seattle Area.
+            Welcome to my website! I'm Chad, a full stack developer living in
+            Hollywood.
           </h1>
           <div className=" h-[1px] w-[80%] bg-black" />
           <p
@@ -129,7 +129,8 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            Currently digging into Next.js.
+            Currently digging into Next.js, MYSQL and Shadcn/tailwind. Which I
+            am loving so far.
           </p>
           <p>{/* eslint-disable-next-line */}</p>
           <div
