@@ -182,7 +182,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
               </button>
             </div>
           </div>
-          <div className="no-scrollbar flex flex-row items-center overflow-x-auto overflow-y-hidden text-sm">
+          {/* <div className="no-scrollbar flex flex-row items-center overflow-x-auto overflow-y-hidden text-sm">
             <p className="mx-[4px] whitespace-nowrap font-chicago text-sm text-white">
               Quick Links:
             </p>
@@ -210,7 +210,7 @@ export const RndWrapper: React.FC<RndWrapperProps> = ({
               />
               Movies
             </motion.button>
-          </div>
+          </div> */}
         </div>
         {navigating && (
           <motion.div className="flex h-full w-full flex-col items-center justify-center">

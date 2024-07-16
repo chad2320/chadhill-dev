@@ -99,8 +99,7 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            Welcome to my website! I'm Chad, a full stack developer living in
-            Hollywood.
+            Welcome to my website! I'm Chad, I tried being a developer but it didnt work out. 
           </h1>
           <div className=" h-[1px] w-[80%] bg-black" />
           <p
@@ -109,9 +108,7 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            This desktop site is just my creative way of showing off my skills
-            and projects. Which you can checkout below or look at the demos in
-            the quick links above!
+            I'm now a pretty good media buyer! Turns out coding is pretty useful in other jobs! I actually am now trying to start my own search arbitrage company. Which I'm excited about!
           </p>
           <p
             className={` m-2 font-chicago ${
@@ -119,18 +116,7 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            This browser works just like any other, except it uses an iframe so
-            many sites wont be accesible. Try typing out bing.com in the url bar
-            and see what happens!
-          </p>
-          <p
-            className={` m-2 font-chicago ${
-              width < 800 ? "text-sm" : "text-lg"
-            } text-white`}
-          >
-            {/* eslint-disable-next-line */}
-            Currently digging into Next.js, MYSQL and Shadcn/tailwind. Which I
-            am loving so far.
+            I hope you found this little project interesting!
           </p>
           <p>{/* eslint-disable-next-line */}</p>
           <div
@@ -145,15 +131,8 @@ export const DefaultPage: React.FC = () => {
                 } text-white`}
               >
                 Status:&nbsp;
-                <span className="text-green-500">Looking for dev work</span>
+                <span className="text-green-500">Media Buyer</span>
               </p>
-            </div>
-            <div
-              className={`flex h-8 items-center rounded-lg bg-purple-800 p-[3px] font-chicago text-sm text-white hover:cursor-pointer`}
-              onPointerDownCapture={handleDownload}
-            >
-              {" "}
-              Click for resume
             </div>
           </div>
         </div>
