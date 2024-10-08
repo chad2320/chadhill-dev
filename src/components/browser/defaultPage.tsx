@@ -99,7 +99,7 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            Welcome to my website! I'm Chad, I tried being a developer but it didnt work out. 
+            Welcome to my website! I'm Chad, and I'm a digital marketer!
           </h1>
           <div className=" h-[1px] w-[80%] bg-black" />
           <p
@@ -108,7 +108,7 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            I'm now a pretty good media buyer! Turns out coding is pretty useful in other jobs! I actually am now trying to start my own search arbitrage company. Which I'm excited about!
+              I know a bit about webdev and decided to make this site as a fun little challenge for myself. I included another project below that I've worked on as it was an interest data processing problem I found.
           </p>
           <p
             className={` m-2 font-chicago ${
@@ -116,7 +116,7 @@ export const DefaultPage: React.FC = () => {
             } text-white`}
           >
             {/* eslint-disable-next-line */}
-            I hope you found this little project interesting!
+            I hope you found this interesting!
           </p>
           <p>{/* eslint-disable-next-line */}</p>
           <div
