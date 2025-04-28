@@ -78,8 +78,8 @@ export const DefaultPage: React.FC = () => {
               width < 800 ? "text-lg" : "text-2xl"
             } text-white`}
           >
-            {/* eslint-disable-next-line */}
-            Welcome to my website! I'm Chad, and I'm a digital marketer!
+            Welcome to my website! I&apos;m Chad, and I&apos;m a digital
+            marketer!
           </h1>
           <div className=" h-[1px] w-[80%] bg-black" />
           <p
@@ -87,19 +87,18 @@ export const DefaultPage: React.FC = () => {
               width < 800 ? "text-sm" : "text-lg"
             } text-white`}
           >
-            {/* eslint-disable-next-line */}I know a bit about webdev and
-            decided to make this site as a fun little challenge for myself. I
-            included another project below that I've worked on as it was an
-            interest data processing problem I found.
+            I know a bit about webdev and decided to make this site as a fun
+            little challenge for myself. I included another project below that
+            I&apos;ve worked on as it was an interest data processing problem I
+            found.
           </p>
           <p
             className={` m-2 font-chicago ${
               width < 800 ? "text-sm" : "text-lg"
             } text-white`}
           >
-            {/* eslint-disable-next-line */}I hope you found this interesting!
+            I hope you found this interesting!
           </p>
-          <p>{/* eslint-disable-next-line */}</p>
           <div
             className={`flex h-full w-full ${
               width > 845 ? "flex-row" : "flex-col"
@@ -274,7 +273,6 @@ export const DefaultPage: React.FC = () => {
           </h1>
         </div>
       )}
-      ``
     </div>
   );
 };
